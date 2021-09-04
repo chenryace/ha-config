@@ -1,0 +1,9 @@
+# 电视
+media_player:
+  - platform: xiaomi_tv
+    host: !secret xiaomi_tv_host
+
+# 遥控器
+remote:
+  - platform: xiaomi_tv
+    host: !secret xiaomi_tv_host

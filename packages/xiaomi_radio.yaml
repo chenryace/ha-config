@@ -1,0 +1,11 @@
+# 小米空调伴侣收音机
+media_player:
+  - platform: xiaomi_radio
+    host: !secret xiaomi_radio_host
+    token: !secret xiaomi_radio_token
+
+# 空调伴侣红外遥控器
+remote:
+  - platform: xiaomi_radio
+    host: !secret xiaomi_radio_host
+    token: !secret xiaomi_radio_token

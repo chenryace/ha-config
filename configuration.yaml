@@ -60,6 +60,7 @@ logger:
   default: warn
   logs:
     homeassistant.components.keyboard_remote: debug
+    homeassistant.components.kodi.media_player: fatal
     #homeassistant.components.mqtt: warn
     #homeassistant.components.hacs: debug
     #custom_components.conversation: debug

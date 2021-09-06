@@ -70,3 +70,15 @@ logger:
 shell_command:
   # 重启
   restart_pow: reboot
+
+# 键盘控制器
+#keyboard_remote:
+# - device_descriptor: '/dev/input/event4'
+#   type: 'key_down'
+
+#binary_sensor:
+#  - platform: ping
+#    name: 天猫魔盒
+#    host: 192.168.1.115
+#    count: 2
+#    scan_interval: 30

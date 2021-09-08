@@ -52,6 +52,7 @@ sudo pm2 startup
 - https://github.com/syssi/xiaomi_airconditioningcompanion
 - https://github.com/AlexxIT/XiaomiGateway3
 - https://github.com/AlexxIT/SonoffLAN
+- https://github.com/custom-components/pyscript
 
 ## HomeBridge
 - https://github.com/homebridge/homebridge

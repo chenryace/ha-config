@@ -2,20 +2,30 @@
 我的HomeAssistant配置
 
 ## 快速安装
+
+Docker管理
 ```bash
-# 安装Docker管理
 sudo docker run -itd --net="host" --restart=always --name="portainer" -v /var/run/docker.sock:/var/run/docker.sock -v ~/portainer:/data portainer/portainer-ce:latest
-# 安装HomeAssistant
+```
+HomeAssistant
+```bash
 sudo docker run -itd --net="host" --restart=always --name="ha" --privileged=true -v ~/homeassistant:/config -e TZ="Asia/Shanghai" homeassistant/home-assistant:latest
-# 安装webssh2
+```
+webssh2
+```bash
 sudo docker run -itd --net="host" --restart=always --name="ssh" --privileged=true ilteoood/webssh2:latest
-# 安装HomeKit服务
+```
+HomeKit服务
+```bash
 sudo docker run -itd --net="host" --restart=always --name="homebridge" -v ~/homebridge:/homebridge oznu/homebridge:latest
 ```
+Nodejs
 ```bash
-# 安装Nodejs
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install -y nodejs
+```
+
+```bash
 # 安装pm2
 npm i pm2 -g
 # 安装node-RED
@@ -153,3 +163,6 @@ server {
 
 }
 ```
+
+## 其他项目
+- https://code.videolan.org/videolan/LibVLCSharp

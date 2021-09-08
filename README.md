@@ -38,72 +38,10 @@ sudo pm2 save
 sudo pm2 startup
 ```
 
-> HACS在线搜索：https://hacs-repositories.web.app/
-
-## 卡片
-- https://github.com/Villhellm/lovelace-animated-background
-- https://github.com/custom-cards/favicon-counter
-- https://github.com/marrobHD/tv-card
-- https://github.com/fineemb/lovelace-fan-xiaomi
-- https://github.com/denysdovhan/purifier-card
-
-## 集成
-- https://github.com/al-one/hass-xiaomi-miot
-- https://github.com/syssi/xiaomi_airconditioningcompanion
-- https://github.com/AlexxIT/XiaomiGateway3
-- https://github.com/AlexxIT/SonoffLAN
-- https://github.com/custom-components/pyscript
-
 ## HomeBridge
 - https://github.com/homebridge/homebridge
 - https://github.com/SeydX/homebridge-camera-ui
 - https://github.com/bwp91/homebridge-ewelink
-
-> 企业微信机器人
-```yaml
-service: pyscript.wework_robot
-data:
-  type: markdown
-  message: |
-    # 小基名称
-    > 估算涨幅：-3.44
-    > 估算净值：1.4084
-    > 当前时间：2021-09-08 15:00
-```
-
-## 我的电脑
-
-电脑鼠标控制
-```yaml
-topic: windows/mouse
-payload:
-  type: left_click
-  type: right_click
-  type: m_click
-  type: left_dblclick
-  type: right_dblclick
-  type: m_dblclick
-  type: move
-  x: 10
-  y: 10
-payload: '{"type": "move", "x": 10, "y": 10}'
-payload: '{"type": "left_click"}'
-```
-
-电脑键盘控制 [键码（KeyCode）对照表](http://www.atoolbox.net/Tool.php?Id=815)
-```yaml
-topic: windows/keyboard
-payload: '{"type": "keypress", "key": 91}'
-payload:
-  type: keypress
-  type: keydown
-  type: keyup
-  key: 96
-```
-|  键名      | 键码   |
-|  :----:    | :----:  |
-| 左win      | 91    |
-| 右win      | 92    |
 
 ## Nginx配置
 ```nginx

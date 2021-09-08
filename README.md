@@ -59,6 +59,18 @@ sudo pm2 startup
 - https://github.com/SeydX/homebridge-camera-ui
 - https://github.com/bwp91/homebridge-ewelink
 
+> 企业微信机器人
+```yaml
+service: pyscript.wework_robot
+data:
+  type: markdown
+  message: |
+    # 小基名称
+    > 估算涨幅：-3.44
+    > 估算净值：1.4084
+    > 当前时间：2021-09-08 15:00
+```
+
 ## 我的电脑
 
 电脑鼠标控制

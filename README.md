@@ -38,6 +38,14 @@ sudo pm2 save
 sudo pm2 startup
 ```
 
+## 升级
+```bash
+sudo docker pull homeassistant/home-assistant:latest
+```
+```bash
+sudo docker pull oznu/homebridge:latest
+```
+
 ## HomeBridge
 - https://github.com/homebridge/homebridge
 - https://github.com/SeydX/homebridge-camera-ui

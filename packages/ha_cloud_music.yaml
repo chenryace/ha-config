@@ -1,6 +1,7 @@
 media_player:
   - platform: ha_cloud_music
     api_url: https://netease-music-api.fe-mm.com
+    find_api_url: http://localhost:3002
     mpd_host: localhost
     uid: 网易云音乐用户ID
     user: 用户账号

@@ -51,6 +51,7 @@ sudo docker pull oznu/homebridge:latest
 - https://github.com/SeydX/homebridge-camera-ui
 - https://github.com/bwp91/homebridge-ewelink
 - https://github.com/kiwi-cam/homebridge-broadlink-rm
+- https://github.com/arachnetech/homebridge-mqttthing
 
 ## Nginx配置
 ```nginx

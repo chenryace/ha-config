@@ -19,6 +19,10 @@ HomeKit服务
 ```bash
 sudo docker run -itd --net="host" --restart=always --name="homebridge" -v ~/homebridge:/homebridge oznu/homebridge:latest
 ```
+ESPHome
+```bash
+sudo docker run -itd --net="host" --restart=always --name="esphome" -v ~/esphome:/config esphome/esphome
+```
 Nodejs
 ```bash
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -

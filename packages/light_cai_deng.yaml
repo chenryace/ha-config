@@ -7,11 +7,11 @@ light:
           service: remote.send_command
           data:
             entity_id: remote.kong_diao_ban_lu
-            device: cai_deng
+            device: 彩灯
             command: 'on'
         turn_off:
           service: remote.send_command
           data:
             entity_id: remote.kong_diao_ban_lu
-            device: cai_deng
+            device: 彩灯
             command: 'off'

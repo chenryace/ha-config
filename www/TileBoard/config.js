@@ -1,11 +1,4 @@
-/*
- This is an example configuration file.
-
- COPY OR RENAME THIS FILE TO config.js.
-
- Make sure you use real IDs from your HA entities.
-*/
-
+// 参数
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -15,7 +8,45 @@ function getQueryVariable(variable) {
     }
     return (false);
 }
-
+// 天气名称
+var weatherName = {
+    "clear-night": "夜间晴朗",
+    "cloudy": "阴",
+    "exceptional": "特殊",
+    "fog": "雾",
+    "hail": "冰雹",
+    "lightning": "雷电",
+    "lightning-rainy": "雷阵雨",
+    "partlycloudy": "多云",
+    "pouring": "暴雨",
+    "rainy": "雨",
+    "snowy": "雪",
+    "snowy-rainy": "雨夹雪",
+    "sunny": "晴",
+    "windy": "有风",
+    "windy-variant": "有风"
+}
+// 天气图标
+var weatherIcon = {
+    'clear-day': 'clear',
+    'clear-night': 'nt-clear',
+    'cloudy': 'cloudy',
+    'exceptional': 'unknown',
+    'fog': 'fog',
+    'hail': 'sleet',
+    'lightning': 'chancestorms',
+    'lightning-rainy': 'tstorms',
+    'partly-cloudy-day': 'partlycloudy',
+    'partlycloudy': 'partlycloudy',
+    'partly-cloudy-night': 'nt-partlycloudy',
+    'pouring': 'rain',
+    'snowy': 'snow',
+    'snowy-rainy': 'sleet',
+    'rainy': 'sleet',
+    'wind': 'unknown',
+    'windy': 'unknown',
+    'windy-variant': 'unknown'
+}
 
 var CONFIG = {
     customTheme: CUSTOM_THEMES[getQueryVariable('theme')], // CUSTOM_THEMES.TRANSPARENT, CUSTOM_THEMES.MATERIAL, CUSTOM_THEMES.MOBILE, CUSTOM_THEMES.COMPACT, CUSTOM_THEMES.HOMEKIT, CUSTOM_THEMES.WINPHONE, CUSTOM_THEMES.WIN95
@@ -25,33 +56,14 @@ var CONFIG = {
     tileMargin: 6,
     serverUrl: location.protocol + '//' + location.host,
     wsUrl: (location.protocol === 'http:' ? 'ws' : 'wss') + '://' + location.host + '/api/websocket',
-    authToken: null, // optional long-lived token (CAUTION: only if TileBoard is not exposed to the internet)
+    authToken: null,
     //googleApiKey: "XXXXXXXXXX", // Required if you are using Google Maps for device tracker
     //mapboxToken: "XXXXXXXXXX", // Required if you are using Mapbox for device tracker
     debug: false, // Prints entities and state change info to the console.
     pingConnection: true, //ping connection to prevent silent disconnections
     locale: 'zh-cn', // locale for date and number formats - available locales: it, de, es, fr, pt, ru, nl, pl, en-gb, en-us (default). See readme on adding custom locales.
     // next fields are optional
-    events: [
-        {
-            command: 'play_sound',
-            action: function (e) {
-                window.playSound(e.url);
-            }
-        },
-        {
-            command: 'refresh_page',
-            action: function (e) {
-                location.reload()
-            }
-        },
-        {
-            command: 'screen_saver',
-            action: function (e) {
-                window.showScreensaver()
-            }
-        },
-    ],
+    events: [],
     timeFormat: 24,
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar
@@ -60,54 +72,18 @@ var CONFIG = {
 
     header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
         styles: {
-            margin: '10px 130px 0',
+            margin: '20px 65px 0 65px',
             fontSize: '28px'
         },
         right: [
-
             {
                 type: HEADER_ITEMS.WEATHER,
                 styles: {
                     margin: '30px 0 0 0'
                 },
                 icon: '&weather.wo_de_jia.state',
-                icons: {
-                    'clear-day': 'clear',
-                    'clear-night': 'nt-clear',
-                    'cloudy': 'cloudy',
-                    'exceptional': 'unknown',
-                    'fog': 'fog',
-                    'hail': 'sleet',
-                    'lightning': 'chancestorms',
-                    'lightning-rainy': 'tstorms',
-                    'partly-cloudy-day': 'partlycloudy',
-                    'partlycloudy': 'partlycloudy',
-                    'partly-cloudy-night': 'nt-partlycloudy',
-                    'pouring': 'rain',
-                    'snowy': 'snow',
-                    'snowy-rainy': 'sleet',
-                    'rainy': 'sleet',
-                    'wind': 'unknown',
-                    'windy': 'unknown',
-                    'windy-variant': 'unknown'
-                },
-                states: {
-                    "clear-night": "夜间晴朗",
-                    "cloudy": "阴",
-                    "exceptional": "特殊",
-                    "fog": "雾",
-                    "hail": "冰雹",
-                    "lightning": "雷电",
-                    "lightning-rainy": "雷阵雨",
-                    "partlycloudy": "多云",
-                    "pouring": "暴雨",
-                    "rainy": "雨",
-                    "snowy": "雪",
-                    "snowy-rainy": "雨夹雪",
-                    "sunny": "晴",
-                    "windy": "有风",
-                    "windy-variant": "有风"
-                },
+                icons: weatherIcon,
+                states: weatherName,
                 fields: {
                     temperature: '&weather.wo_de_jia.attributes.temperature',
                     temperatureUnit: '°C',
@@ -118,14 +94,7 @@ var CONFIG = {
             {
                 type: HEADER_ITEMS.DATETIME,
                 dateFormat: 'EEEE, dd LLLL', //https://docs.angularjs.org/api/ng/filter/date
-            },
-            // {
-            //    type: HEADER_ITEMS.DATE,
-            //    dateFormat: 'EEEE, LLLL dd', //https://docs.angularjs.org/api/ng/filter/date
-            // },
-            // {
-            //    type: HEADER_ITEMS.TIME,
-            // },
+            }
         ]
     },
 
@@ -135,8 +104,11 @@ var CONFIG = {
         styles: { fontSize: '40px' },
         leftBottom: [{ type: SCREENSAVER_ITEMS.DATETIME }], // put datetime to the left-bottom of screensaver
         slides: [
+            { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2018-08-07%2F5b698895e7e9f.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8508a6ab7377a05040a530bf892f5e93' },
+            { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.soumeitu.com%2Fwp-content%2Fuploads%2F2020%2F03%2F5e830ed47bb5e.jpg&refer=http%3A%2F%2Fwww.soumeitu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=75c6c9e5ec86214d4cee93375b0d3e47' },
+            { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2017-11-27%2F5a1ba6c832230.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8a5fb766c4ab6dc6af4ab930c0e3fe96' },
             {
-                bg: '/local/image/homebg.jpeg',
+                bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Ff%2F59acbb7762c18.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628595163&t=d2e933baff73aab89dc22f2ff8fdf70a',
                 rightTop: [ // put text to the 2nd slide
                     {
                         type: SCREENSAVER_ITEMS.CUSTOM_HTML,
@@ -144,26 +116,21 @@ var CONFIG = {
                         styles: { fontSize: '40px' }
                     }
                 ]
-            },
-            { bg: '/local/TileBoard/images/bg1.jpeg' },
-            { bg: '/local/TileBoard/images/bg2.png' },
-            { bg: '/local/TileBoard/images/bg3.jpg' },
-            {
-                bg: '/local/TileBoard/images/bg5.jpg'
             }
         ]
     },
 
     pages: [
         {
-            title: 'Main page',
-            bg: 'images/bg1.jpeg',
+            title: '主页',
+            bg: './images/bg1.jpeg',
             icon: 'mdi-home-outline', // home icon
             groups: [
                 {
                     title: '生活信息 - 媒体中心',
                     width: 3,
                     height: 3,
+                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
                     items: [
                         {
                             // please read README.md for more information
@@ -176,47 +143,12 @@ var CONFIG = {
                             // state: function () {return 'Clear, night'},
                             icon: '&weather.wo_de_jia.state',
                             title: '上海',
-                            icons: {
-                                'clear-day': 'clear',
-                                'clear-night': 'nt-clear',
-                                'cloudy': 'cloudy',
-                                'exceptional': 'unknown',
-                                'fog': 'fog',
-                                'hail': 'sleet',
-                                'lightning': 'chancestorms',
-                                'lightning-rainy': 'tstorms',
-                                'partly-cloudy-day': 'partlycloudy',
-                                'partlycloudy': 'partlycloudy',
-                                'partly-cloudy-night': 'nt-partlycloudy',
-                                'pouring': 'rain',
-                                'snowy': 'snow',
-                                'snowy-rainy': 'sleet',
-                                'rainy': 'sleet',
-                                'wind': 'unknown',
-                                'windy': 'unknown',
-                                'windy-variant': 'unknown'
-                            },
-                            states: {
-                                "clear-night": "夜间晴朗",
-                                "cloudy": "阴",
-                                "exceptional": "特殊",
-                                "fog": "雾",
-                                "hail": "冰雹",
-                                "lightning": "雷电",
-                                "lightning-rainy": "雷阵雨",
-                                "partlycloudy": "多云",
-                                "pouring": "暴雨",
-                                "rainy": "雨",
-                                "snowy": "雪",
-                                "snowy-rainy": "雨夹雪",
-                                "sunny": "晴",
-                                "windy": "有风",
-                                "windy-variant": "有风"
-                            },
+                            icons: weatherIcon,
+                            states: weatherName,
                             fields: {
-                                temperature: '&weather.wo_de_jia.attributes.temperature',
+                                temperature: '&weather.tian_qi.attributes.temperature',
                                 temperatureUnit: '°C',
-                                humidity: '&weather.wo_de_jia.attributes.humidity',
+                                humidity: '&weather.tian_qi.attributes.humidity',
                                 humidityUnit: '%',
                             }
                         },
@@ -228,15 +160,35 @@ var CONFIG = {
                             state: false, // disable state element
                             list: [
                                 {
-                                    title: 'Sun.sun state',
-                                    icon: 'mdi-weather-sunny',
-                                    value: '&sun.sun.state'
+                                    title: '客厅温度',
+                                    icon: 'mdi-clock-outline',
+                                    value: '&sensor.lywsdcgq_temperature.state',
+                                    unit: ' °C',
                                 },
                                 {
-                                    title: 'Custom',
+                                    title: '主卧温度',
                                     icon: 'mdi-clock-outline',
-                                    value: 'value'
-                                }
+                                    value: '&sensor.lywsdcgq_temperature.state',
+                                    unit: ' °C',
+                                },
+                                {
+                                    title: '次卧温度',
+                                    icon: 'mdi-clock-outline',
+                                    value: '&sensor.lywsdcgq_temperature.state',
+                                    unit: ' °C',
+                                },
+                                {
+                                    title: '客厅湿度',
+                                    icon: 'mdi-clock-outline',
+                                    value: '&sensor.lywsdcgq_humidity.state',
+                                    unit: ' %',
+                                },
+                                {
+                                    title: '主卧湿度',
+                                    icon: 'mdi-clock-outline',
+                                    value: '&sensor.lywsdcgq_temperature.state',
+                                    unit: ' %',
+                                },
                             ]
                         },
                         {
@@ -247,20 +199,43 @@ var CONFIG = {
                             state: false, // disable state element
                             list: [
                                 {
-                                    title: 'Sun.sun state',
-                                    icon: 'mdi-weather-sunny',
-                                    value: '&sun.sun.state'
+                                    title: '门口',
+                                    icon: 'mdi-walk',
+                                    value: 'off'
                                 },
                                 {
-                                    title: 'Custom',
-                                    icon: 'mdi-clock-outline',
-                                    value: 'value'
+                                    title: '玄关',
+                                    icon: 'mdi-walk',
+                                    value: 'off'
+                                },
+                                {
+                                    title: '阳台',
+                                    icon: 'mdi-walk',
+                                    value: 'off'
+                                },
+                                {
+                                    title: '卫生间',
+                                    icon: 'mdi-walk',
+                                    value: '&binary_sensor.lumi_lumi_sensor_motion_3876d103_ias_zone.state'
+                                },
+                                {
+                                    title: '床底',
+                                    icon: 'mdi-walk',
+                                    value: '&binary_sensor.lumi_lumi_sensor_motion_0cf93005_ias_zone.state'
+                                },
+                            ],
+                            filter: function (value) {
+                                // console.log(value)
+                                switch (value) {
+                                    case 'on': return '有人';
+                                    case 'off': return '没人';
+                                    default: return value;
                                 }
-                            ]
+                            }
                         },
                         {
                             position: [0, 2],
-                            width: 3,
+                            width: 2,
                             id: 'media_player.yun_yin_le',
                             type: TYPES.MEDIA_PLAYER,
                             hideSource: false,
@@ -270,18 +245,326 @@ var CONFIG = {
                             title: '@attributes.media_title',
                             // bgSuffix: '@attributes.entity_picture',
                         },
+                        {
+                            position: [2, 2],
+                            type: TYPES.SCRIPT,
+                            id: 'script.wang_yi_dian_tai_song_yu_xuan_du',
+                            state: false,
+                            icon: 'mdi-music',
+                        },
+                        {
+                            position: [0, 3],
+                            type: TYPES.CUSTOM,
+                            title: '语音识别',
+                            state: false,
+                            id: {},
+                            icon: 'mdi-microphone',
+                            action: function (item, entity) {
+                                this.api.send({
+                                    type: "call_service",
+                                    domain: "mipad_android",
+                                    service: 'load',
+                                    service_data: {
+                                        stt: 1
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            position: [1, 3],
+                            type: TYPES.SCRIPT,
+                            id: 'script.yun_yin_le_mei_ri_tui_jian',
+                            state: false,
+                            icon: 'mdi-music',
+                        },
+                        {
+                            position: [2, 3],
+                            type: TYPES.SCRIPT,
+                            id: 'script.xi_ma_la_ya_duan_zi_lai_le',
+                            state: false,
+                            icon: 'mdi-music',
+                        },
                     ]
                 },
 
                 {
-                    title: '客厅',
-                    width: 1,
+                    title: '场景模式',
+                    width: 2,
                     height: 3,
                     items: [
                         {
                             position: [0, 0],
+                            id: {},
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-movie-roll',
+                            title: '观影模式',
+                        },
+                        {
+                            position: [1, 0],
+                            id: 'script.hui_jia_mo_shi',
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-home-import-outline',
+                            title: '回家模式',
+                        },
+                        {
+                            position: [0, 1],
+                            id: {},
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-account-music',
+                            title: '音乐模式',
+                        },
+                        {
+                            position: [1, 1],
+                            id: {},
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-account-clock',
+                            title: '休闲模式',
+                        },
+                        {
+                            position: [0, 2],
+                            id: {},
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-account-group',
+                            title: '会客模式',
+                        },
+                        {
+                            position: [1, 2],
+                            id: {},
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-account-lock',
+                            title: '私密模式',
+                        },
+                    ]
+                },
+
+                {
+                    title: '客厅 - 阳台',
+                    width: 3,
+                    height: 3,
+                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [2, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '镜前灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [2, 1],
                             type: TYPES.SWITCH,
-                            id: 'input_boolean.ce_shi',
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '阳台灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 2],
+                            width: 2,
+                            id: 'media_player.xiao_mi_dian_shi',
+                            type: TYPES.MEDIA_PLAYER,
+                            hideSource: false,
+                            state: false,
+                            //state: '@attributes.media_title',
+                            subtitle: '@attributes.media_title',
+                            // bgSuffix: '@attributes.entity_picture',
+                        },
+                        {
+                            position: [2, 2],
+                            type: TYPES.CUSTOM,
+                            title: '播放历史记录',
+                            id: {},
+                            icon: 'mdi-movie',
+                            state: '小米电视',
+                            action: function (item, entity) {
+
+                            }
+                        },
+                        {
+                            position: [0, 3],
+                            type: TYPES.SWITCH,
+                            id: 'switch.sonoff_1001307c6b',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-camera",
+                                off: "mdi-camera-off",
+                            }
+                        },
+                    ]
+                },
+
+
+                {
+                    title: '餐厅 - 厨房',
+                    width: 2,
+                    height: 3,
+                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 1],
+                            type: TYPES.SWITCH,
+                            //id: "switch.lights",
+                            id: { state: 'off' },
+                            title: '厨房灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 1],
+                            type: TYPES.SWITCH,
+                            //id: "switch.lights",
+                            id: { state: 'off' },
+                            title: '阳台灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+
+                    ],
+                },
+
+
+                {
+                    title: '主卧',
+                    width: 2,
+                    height: 3,
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 1],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '飘窗灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 1],
+                            type: TYPES.SWITCH,
+                            title: '主卫灯',
+                            id: 'switch.sonoff_1000b22946',
                             states: {
                                 on: "开",
                                 off: "关"
@@ -292,12 +575,185 @@ var CONFIG = {
                             }
                         },
                     ]
+                },
 
+
+                {
+                    title: '次卧',
+                    width: 2,
+                    height: 3,
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                    ]
+                },
+
+
+
+                {
+                    title: '书房',
+                    width: 2,
+                    height: 3,
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                    ]
+                },
+
+
+                {
+                    title: '玄关',
+                    width: 1,
+                    height: 3,
+                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 1],
+                            type: TYPES.LOCK,
+                            id: { state: 'locked' },
+                            title: '大门',
+                            states: {
+                                locked: "Locked",
+                                unlocked: "Unlocked"
+                            },
+                            icons: {
+                                locked: "mdi-lock",
+                                unlocked: "mdi-lock-open",
+                            }
+                        },
+
+                        {
+                            position: [0, 2],
+                            type: TYPES.ALARM,
+                            // id: "alarm_control_panel.home_alarm",
+                            id: { state: 'disarmed' }, // replace it with real string id
+                            title: '家庭报警器',
+                            icons: {
+                                arming: 'mdi-bell-outline',
+                                disarmed: 'mdi-bell-off',
+                                pending: 'mdi-bell',
+                                armed_custom_bypass: 'mdi-bell-check',
+                                armed_home: 'mdi-bell-plus',
+                                armed_night: 'mdi-bell-sleep',
+                                armed_away: 'mdi-bell',
+                                triggered: 'mdi-bell-ring',
+                            },
+                            states: {
+                                arming: 'Arming',
+                                disarmed: 'Disarmed',
+                                pending: 'Pending',
+                                armed_custom_bypass: 'Armed custom bypass',
+                                armed_home: 'Armed home',
+                                armed_night: 'Armed night',
+                                armed_away: 'Armed away',
+                                triggered: 'Triggered',
+                            },
+                        },
+                    ]
                 },
 
                 {
+                    title: '离家',
+                    width: 1,
+                    height: 3,
+                    items: [
+                        {
+                            position: [0, 0],
+                            id: 'script.li_jia_mo_shi',
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-home-export-outline',
+                            title: '离家模式',
+                        },
+                        {
+                            position: [0, 1],
+                            id: 'script.test_device_state',
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-home-search',
+                            title: '检测设备状态',
+                        },
+                        {
+                            position: [0, 2],
+                            id: {},
+                            type: TYPES.SCRIPT,
+                            state: false,
+                            icon: 'mdi-close-network',
+                            title: '关闭所有设备',
+                        },
+                    ]
+                },
+
+
+                {
                     title: '设置',
-                    width: 4,
+                    width: 3,
                     height: 3,
                     items: [
                         {
@@ -323,21 +779,99 @@ var CONFIG = {
                                 location.reload()
                             }
                         },
-
                         {
                             position: [0, 2],
                             type: TYPES.CUSTOM,
-                            title: '默认主题',
-                            state: 'COMPACT',
+                            title: '锁屏',
                             id: {},
-                            icon: 'mdi-palette-outline',
+                            icon: 'mdi-monitor-off',
+                            state: '',
                             action: function (item, entity) {
-                                location.search = '?theme=COMPACT'
+                                this.api.send({
+                                    type: "call_service",
+                                    domain: "mipad_android",
+                                    service: 'setting',
+                                    service_data: {
+                                        lock: 1
+                                    }
+                                })
                             }
                         },
                         // 第一行
                         {
                             position: [1, 0],
+                            type: TYPES.CUSTOM,
+                            title: '暗',
+                            state: '',
+                            id: {},
+                            icon: 'mdi-lightbulb-outline',
+                            action: function (item, entity) {
+                                this.api.send({
+                                    type: "call_service",
+                                    domain: "script",
+                                    service: 'xiao_mi_ping_ban_brightness_low'
+                                })
+
+                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度调低', lifetime: 3, type: 'success' })
+                            }
+                        },
+                        // 第二行
+                        {
+                            position: [1, 1],
+                            type: TYPES.CUSTOM,
+                            title: '适中',
+                            state: '',
+                            id: {},
+                            icon: 'mdi-lightbulb-on-outline',
+                            action: function (item, entity) {
+                                this.api.send({
+                                    type: "call_service",
+                                    domain: "script",
+                                    service: 'xiao_mi_ping_ban_brightness_middle'
+                                })
+                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度适中', lifetime: 3, type: 'success' })
+                            }
+                        },
+                        // 第三行
+                        {
+                            position: [1, 2],
+                            type: TYPES.CUSTOM,
+                            title: '亮',
+                            state: '',
+                            id: {},
+                            icon: 'mdi-lightbulb-on',
+                            action: function (item, entity) {
+                                this.api.send({
+                                    type: "call_service",
+                                    domain: "script",
+                                    service: 'xiao_mi_ping_ban_brightness_high'
+                                })
+                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度最亮', lifetime: 3, type: 'success' })
+                            }
+                        },
+                        {
+                            position: [1, 3],
+                            type: TYPES.CUSTOM,
+                            title: '最暗',
+                            state: '',
+                            id: {},
+                            icon: 'mdi-lightbulb-outline',
+                            action: function (item, entity) {
+                                this.api.send({
+                                    type: "call_service",
+                                    domain: "mqtt",
+                                    service: 'publish',
+                                    service_data: {
+                                        topic: 'android/13e6af99/set',
+                                        payload: 'brightness: 1'
+                                    }
+                                })
+                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度最暗', lifetime: 3, type: 'success' })
+                            }
+                        },
+                        // 第一行
+                        {
+                            position: [2, 0],
                             type: TYPES.CUSTOM,
                             title: '透明主题',
                             state: 'TRANSPARENT',
@@ -349,7 +883,7 @@ var CONFIG = {
                         },
                         // 第二行
                         {
-                            position: [1, 1],
+                            position: [2, 1],
                             type: TYPES.CUSTOM,
                             title: 'WIN95主题',
                             state: 'WIN95',
@@ -361,7 +895,7 @@ var CONFIG = {
                         },
                         // 第三行
                         {
-                            position: [1, 2],
+                            position: [2, 2],
                             type: TYPES.CUSTOM,
                             title: '苹果主题',
                             state: 'HOMEKIT',
@@ -372,119 +906,19 @@ var CONFIG = {
                             }
                         },
                         {
-                            position: [2, 0],
+                            position: [2, 3],
                             type: TYPES.CUSTOM,
-                            title: '全屏显示',
+                            title: '默认主题',
+                            state: 'COMPACT',
                             id: {},
-                            icon: 'mdi-fullscreen',
-                            state: '',
+                            icon: 'mdi-palette-outline',
                             action: function (item, entity) {
-                                document.documentElement.requestFullscreen()
-                            }
-                        },
-                        {
-                            position: [2, 1],
-                            type: TYPES.CUSTOM,
-                            title: '退出全屏',
-                            id: {},
-                            icon: 'mdi-fullscreen-exit',
-                            state: '',
-                            action: function (item, entity) {
-                                document.exitFullscreen()
+                                location.search = '?theme=COMPACT'
                             }
                         },
                     ]
                 },
 
-            ]
-        },
-        {
-            title: 'Second page',
-            bg: 'images/bg2.png',
-            icon: 'mdi-numeric-2-box-outline',
-            groups: [
-                {
-                    title: '',
-                    width: 4,
-                    height: 3,
-                    items: [
-                        {
-                            position: [0, 0],
-                            width: 2,
-                            title: 'Short instruction',
-                            type: TYPES.TEXT_LIST,
-                            id: {}, // using empty object for an unknown id
-                            state: false, // disable state element
-                            list: [
-                                {
-                                    title: 'Read',
-                                    icon: 'mdi-numeric-1-box-outline',
-                                    value: 'README.md'
-                                },
-                                {
-                                    title: 'Ask on forum',
-                                    icon: 'mdi-numeric-2-box-outline',
-                                    value: 'home-assistant.io'
-                                },
-                                {
-                                    title: 'Open an issue',
-                                    icon: 'mdi-numeric-3-box-outline',
-                                    value: 'github.com'
-                                },
-                            ]
-                        },
-                        {
-                            position: [2, 0],
-                            width: 2,
-                            title: 'System Status',
-                            type: TYPES.TEXT_LIST,
-                            id: {}, // using empty object for an unknown id
-                            state: false, // disable state element
-                            list: [
-                                {
-                                    title: 'Free Memory',
-                                    icon: 'mdi-memory',
-                                    value: function () {
-                                        // var freeMemory = this.parseFieldValue('&sensor.memory_free.state')
-                                        var freeMemory = 15.444  // Just an example.
-                                        return this.$scope.filterNumber(freeMemory, 1) + ' GB';
-                                    }
-                                },
-                            ]
-                        },
-
-                        {
-                            position: [0, 1.5],
-                            width: 1.5,
-                            height: 1.5,
-                            title: 'My Gauge Title',
-                            subtitle: '',
-                            type: TYPES.GAUGE,
-                            // id: 'sensor.my_sample_sensor', // Assign the sensor you want to display on the gauge
-                            id: { state: 11111 }, // Remove after choosing to actual sensor ID
-                            value: function (item, entity) {
-                                return entity.state;
-                            },
-                            settings: {
-                                size: 200, // Defaults to 50% of either height or width, whichever is smaller
-                                type: 'full', // Options are: 'full', 'semi', and 'arch'. Defaults to 'full'
-                                min: 0, // Defaults to 0
-                                max: 25000, // Defaults to 100
-                                cap: 'round', // Options are: 'round', 'butt'. Defaults to 'butt'
-                                thick: 8, // Defaults to 6
-                                label: 'My Gauge', // Defaults to undefined
-                                append: '@attributes.unit_of_measurement', // Defaults to undefined
-                                prepend: '$', // Defaults to undefined
-                                duration: 1500, // Defaults to 1500ms
-                                thresholds: { 0: { color: 'green' }, 80: { color: 'red' } }, // Defaults to undefined
-                                labelOnly: false, // Defaults to false
-                                foregroundColor: 'rgba(0, 150, 136, 1)', // Defaults to rgba(0, 150, 136, 1)
-                                backgroundColor: 'rgba(0, 0, 0, 0.1)', // Defaults to rgba(0, 0, 0, 0.1)
-                                fractionSize: 0, // Number of decimal places to round the number to. Defaults to current locale formatting
-                            },
-                        },
-                    ]
-                },
             ]
         }
     ],

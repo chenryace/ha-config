@@ -36,7 +36,7 @@
   wlan_link: ''
 - name: 下载管理
   icon: mdi:cloud-download
-  link: /local/aria2/index.html
+  link: /local/AriaNg/index.html
   mode: '1'
   path: sidebar_aria2
   wlan_link: ''

@@ -30,6 +30,7 @@ sensor:
       - type: swap_use
       - type: swap_free
       - type: processor_use
+      - type: processor_temperature
       - type: last_boot
 
 # 分组
@@ -49,7 +50,8 @@ group:
       - sensor.swap_use_percent
       - sensor.swap_use
       - sensor.swap_free
-      - sensor.processor_use_percent
+      - sensor.processor_use
+      - sensor.processor_temperature
       - sensor.last_boot
       - sensor.wan_ip
 
@@ -76,8 +78,10 @@ homeassistant:
       friendly_name: 交换分区使用
     sensor.swap_free:
       friendly_name: 交换分区空闲
-    sensor.processor_use_percent:
+    sensor.processor_use:
       friendly_name: 处理器使用
+    sensor.processor_temperature:
+      friendly_name: 处理器温度
     sensor.last_boot:
       friendly_name: 开机时间
     sensor.cpu_temperature:

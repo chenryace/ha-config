@@ -63,7 +63,80 @@ var CONFIG = {
     pingConnection: true, //ping connection to prevent silent disconnections
     locale: 'zh-cn', // locale for date and number formats - available locales: it, de, es, fr, pt, ru, nl, pl, en-gb, en-us (default). See readme on adding custom locales.
     // next fields are optional
-    events: [],
+    events: [
+        {
+            command: 'audio',
+            action: function (e) {
+                if (!window.TileBoardAudio) {
+                    window.TileBoardAudio = new Audio()
+                }
+                var audio = window.TileBoardAudio
+                if (e.url) {
+                    let url = e.url
+                    if (location.protocol === 'https:') {
+                        url = url.replace('http://', 'https://')
+                    }
+                    audio.src = url
+                    audio.play()
+                }
+                // 播放音乐
+                switch (e.type) {
+                    case 'play':
+                        audio.play()
+                        break;
+                    case 'pause':
+                        audio.pause()
+                        break;
+                    case 'reload':
+                        if (audio.src) {
+                            audio.currentTime = 0
+                            audio.play()
+                        }
+                        break;
+                    case 'volume_up':
+                        if (audio.volume < 1) {
+                            audio.volume += 0.1
+                        }
+                        break;
+                    case 'volume_down':
+                        if (audio.volume > 0.1) {
+                            audio.volume -= 0.1
+                        }
+                        break;
+                    case 'volume_set':
+                        var volume = e.volume
+                        if (!isNaN(volume) && volume >= 0 && volume <= 100) {
+                            audio.volume = volume / 100
+                        }
+                        break;
+                }
+            }
+        },
+        {
+            command: 'refresh_page',
+            action: function (e) {
+                location.reload()
+            }
+        },
+        {
+            command: 'screen_saver',
+            action: function (e) {
+                window.showScreensaver()
+            }
+        },
+        {
+            command: 'clear_notify',
+            action: function (e) {
+                window.Noty.removeAll()
+            }
+        },
+        {
+            command: 'notify',
+            action: function (e) {
+                window.Noty.addObject(e);
+            }
+        }
+    ],
     timeFormat: 24,
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar
@@ -104,7 +177,7 @@ var CONFIG = {
         styles: { fontSize: '40px' },
         leftBottom: [{ type: SCREENSAVER_ITEMS.DATETIME }], // put datetime to the left-bottom of screensaver
         slides: [
-            { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2018-08-07%2F5b698895e7e9f.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8508a6ab7377a05040a530bf892f5e93' },
+            { bg: 'https://pic.downk.cc/item/5ec331eec2a9a83be54d84f4.jpg' },
             { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.soumeitu.com%2Fwp-content%2Fuploads%2F2020%2F03%2F5e830ed47bb5e.jpg&refer=http%3A%2F%2Fwww.soumeitu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=75c6c9e5ec86214d4cee93375b0d3e47' },
             { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2017-11-27%2F5a1ba6c832230.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8a5fb766c4ab6dc6af4ab930c0e3fe96' },
             {

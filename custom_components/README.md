@@ -10,6 +10,7 @@
 - https://github.com/denysdovhan/purifier-card
 
 ## 集成
+- https://github.com/hasscc/hass-edge-tts
 - https://github.com/al-one/hass-xiaomi-miot
 - https://github.com/syssi/xiaomi_airconditioningcompanion
 - https://github.com/AlexxIT/XiaomiGateway3

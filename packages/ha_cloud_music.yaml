@@ -1,10 +1,10 @@
 media_player:
   - platform: ha_cloud_music
-    api_url: https://netease-music-api.fe-mm.com
+    api_url: https://neteasecloudmusicapi.vercel.app
     find_api_url: http://localhost:3002
     mpd_host: localhost
-    uid: 网易云音乐用户ID
-    user: 用户账号
-    password: 密码
+    uid: !secret music_uid
+    user: !secret music_user
+    password: !secret music_password
     tts_before_message: 主人：
     tts_after_message: 。我是爱你的小喵哦

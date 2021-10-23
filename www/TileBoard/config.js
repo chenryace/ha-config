@@ -42,6 +42,7 @@ var weatherIcon = {
     'pouring': 'rain',
     'snowy': 'snow',
     'snowy-rainy': 'sleet',
+    'sunny': 'sunny',
     'rainy': 'sleet',
     'wind': 'unknown',
     'windy': 'unknown',
@@ -219,9 +220,9 @@ var CONFIG = {
                             icons: weatherIcon,
                             states: weatherName,
                             fields: {
-                                temperature: '&weather.tian_qi.attributes.temperature',
+                                temperature: '&weather.wo_de_jia.attributes.temperature',
                                 temperatureUnit: '°C',
-                                humidity: '&weather.tian_qi.attributes.humidity',
+                                humidity: '&weather.wo_de_jia.attributes.humidity',
                                 humidityUnit: '%',
                             }
                         },
@@ -992,6 +993,22 @@ var CONFIG = {
                     ]
                 },
 
+            ]
+        },
+
+        {
+            title: '设置',
+            bg: './images/bg3.jpg',
+            icon: 'mdi-numeric-2-circle-outline',
+            groups: [
+            ]
+        },
+
+        {
+            title: '设置',
+            bg: './images/bg5.jpg',
+            icon: 'mdi-numeric-3-circle-outline',
+            groups: [
             ]
         }
     ],

@@ -1,9 +1,10 @@
 
+
 var CONFIG = {
     customTheme: CUSTOM_THEMES[tileboard.search('theme')], // CUSTOM_THEMES.TRANSPARENT, CUSTOM_THEMES.MATERIAL, CUSTOM_THEMES.MOBILE, CUSTOM_THEMES.COMPACT, CUSTOM_THEMES.HOMEKIT, CUSTOM_THEMES.WINPHONE, CUSTOM_THEMES.WIN95
     transition: TRANSITIONS.ANIMATED_GPU, //ANIMATED or SIMPLE (better perfomance)
     entitySize: ENTITY_SIZES.NORMAL, //SMALL, BIG are available
-    tileSize: 130,
+    tileSize: 100,
     tileMargin: 6,
     serverUrl: location.protocol + '//' + location.host,
     wsUrl: (location.protocol === 'http:' ? 'ws' : 'wss') + '://' + location.host + '/api/websocket',
@@ -18,6 +19,10 @@ var CONFIG = {
         {
             command: 'audio',
             action: function (e) {
+                var config = tileboard.search('config')
+                if (config && e.config !== config) {
+                    return
+                }
                 if (!window.TileBoardAudio) {
                     window.TileBoardAudio = new Audio()
                 }
@@ -107,31 +112,6 @@ var CONFIG = {
     onReady: function () { },
 
     header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
-        styles: {
-            margin: '20px 65px 0 65px',
-            fontSize: '28px'
-        },
-        right: [
-            {
-                type: HEADER_ITEMS.WEATHER,
-                styles: {
-                    margin: '30px 0 0 0'
-                },
-                icon: '&weather.wo_de_jia.state',
-                icons: weatherIcon,
-                states: weatherName,
-                fields: {
-                    temperature: '&weather.wo_de_jia.attributes.temperature',
-                    temperatureUnit: '°C',
-                }
-            }
-        ],
-        left: [
-            {
-                type: HEADER_ITEMS.DATETIME,
-                dateFormat: 'EEEE, dd LLLL', //https://docs.angularjs.org/api/ng/filter/date
-            }
-        ]
     },
 
     screensaver: {// optional. https://github.com/resoai/TileBoard/wiki/Screensaver-configuration
@@ -144,14 +124,7 @@ var CONFIG = {
             { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.soumeitu.com%2Fwp-content%2Fuploads%2F2020%2F03%2F5e830ed47bb5e.jpg&refer=http%3A%2F%2Fwww.soumeitu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=75c6c9e5ec86214d4cee93375b0d3e47' },
             { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2017-11-27%2F5a1ba6c832230.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8a5fb766c4ab6dc6af4ab930c0e3fe96' },
             {
-                bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Ff%2F59acbb7762c18.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628595163&t=d2e933baff73aab89dc22f2ff8fdf70a',
-                rightTop: [ // put text to the 2nd slide
-                    {
-                        type: SCREENSAVER_ITEMS.CUSTOM_HTML,
-                        html: '欢迎来到 <b>我的智慧家庭</b>',
-                        styles: { fontSize: '40px' }
-                    }
-                ]
+                bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Ff%2F59acbb7762c18.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628595163&t=d2e933baff73aab89dc22f2ff8fdf70a'
             }
         ]
     },
@@ -219,12 +192,6 @@ var CONFIG = {
                                     value: '&sensor.lywsdcgq_humidity.state',
                                     unit: ' %',
                                 },
-                                {
-                                    title: '主卧湿度',
-                                    icon: 'mdi-clock-outline',
-                                    value: '&sensor.lywsdcgq_temperature.state',
-                                    unit: ' %',
-                                },
                             ]
                         },
                         {
@@ -254,11 +221,6 @@ var CONFIG = {
                                     icon: 'mdi-walk',
                                     value: '&binary_sensor.lumi_lumi_sensor_motion_3876d103_ias_zone.state'
                                 },
-                                {
-                                    title: '床底',
-                                    icon: 'mdi-walk',
-                                    value: '&binary_sensor.lumi_lumi_sensor_motion_0cf93005_ias_zone.state'
-                                },
                             ],
                             filter: function (value) {
                                 // console.log(value)
@@ -287,39 +249,7 @@ var CONFIG = {
                             id: 'script.wang_yi_dian_tai_song_yu_xuan_du',
                             state: false,
                             icon: 'mdi-music',
-                        },
-                        {
-                            position: [0, 3],
-                            type: TYPES.CUSTOM,
-                            title: '语音识别',
-                            state: false,
-                            id: {},
-                            icon: 'mdi-microphone',
-                            action: function (item, entity) {
-                                this.api.send({
-                                    type: "call_service",
-                                    domain: "mipad_android",
-                                    service: 'load',
-                                    service_data: {
-                                        stt: 1
-                                    }
-                                })
-                            }
-                        },
-                        {
-                            position: [1, 3],
-                            type: TYPES.SCRIPT,
-                            id: 'script.yun_yin_le_mei_ri_tui_jian',
-                            state: false,
-                            icon: 'mdi-music',
-                        },
-                        {
-                            position: [2, 3],
-                            type: TYPES.SCRIPT,
-                            id: 'script.xi_ma_la_ya_duan_zi_lai_le',
-                            state: false,
-                            icon: 'mdi-music',
-                        },
+                        }
                     ]
                 },
 
@@ -375,20 +305,7 @@ var CONFIG = {
                             state: false,
                             icon: 'mdi-account-lock',
                             title: '私密模式',
-                        },
-                        {
-                            position: [0, 3],
-                            id: 'media_player.xiao_mi_dian_tai',
-                            width: 2,
-                            type: TYPES.MEDIA_PLAYER,
-                            hideSource: false,
-                            // textSource: '小米电台',
-                            hideMuteButton: false,
-                            state: false,
-                            //state: '@attributes.media_title',
-                            subtitle: '@attributes.media_title',
-                            // bgSuffix: '@attributes.entity_picture',
-                        },
+                        }
                     ]
                 },
 
@@ -494,6 +411,20 @@ var CONFIG = {
                                 off: "mdi-lightbulb",
                             }
                         },
+
+                        {
+                            position: [1, 1],
+                            type: TYPES.SWITCH,
+                            id: 'switch.sonoff_1001307c6b',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-camera",
+                                off: "mdi-camera-off",
+                            }
+                        },
                         {
                             position: [2, 0],
                             type: TYPES.SWITCH,
@@ -542,19 +473,6 @@ var CONFIG = {
                             state: '小米电视',
                             action: function (item, entity) {
 
-                            }
-                        },
-                        {
-                            position: [0, 3],
-                            type: TYPES.SWITCH,
-                            id: 'switch.sonoff_1001307c6b',
-                            states: {
-                                on: "开",
-                                off: "关"
-                            },
-                            icons: {
-                                on: "mdi-camera",
-                                off: "mdi-camera-off",
                             }
                         },
                     ]
@@ -873,98 +791,14 @@ var CONFIG = {
                             }
                         },
                         {
-                            position: [0, 2],
-                            type: TYPES.LIGHT,
-                            id: 'light.wo_de_ping_ban',
-                            title: '我的平板',
-                            states: {
-                                on: "开",
-                                off: "关"
-                            },
-                            icons: {
-                                on: "mdi-lightbulb-on",
-                                off: "mdi-lightbulb",
-                            },
-                            sliders: [
-                                {
-                                    title: 'Brightness',
-                                    field: 'brightness',
-                                    max: 255,
-                                    min: 0,
-                                    step: 5,
-                                    request: {
-                                        type: "call_service",
-                                        domain: "light",
-                                        service: "turn_on",
-                                        field: "brightness"
-                                    }
-                                }
-                            ]
-                        },
-                        // 第一行
-                        {
                             position: [1, 0],
                             type: TYPES.CUSTOM,
-                            title: '暗',
-                            state: '',
+                            title: '默认主题',
+                            state: 'COMPACT',
                             id: {},
-                            icon: 'mdi-lightbulb-outline',
+                            icon: 'mdi-palette-outline',
                             action: function (item, entity) {
-                                this.api.send({
-                                    type: "call_service",
-                                    domain: "light",
-                                    service: 'turn_on',
-                                    service_data: {
-                                        entity_id: 'light.wo_de_ping_ban',
-                                        brightness_pct: 1
-                                    }
-                                })
-
-                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度调低', lifetime: 3, type: 'success' })
-                            }
-                        },
-                        // 第二行
-                        {
-                            position: [1, 1],
-                            type: TYPES.CUSTOM,
-                            title: '适中',
-                            state: '',
-                            id: {},
-                            icon: 'mdi-lightbulb-on-outline',
-                            action: function (item, entity) {
-
-                                this.api.send({
-                                    type: "call_service",
-                                    domain: "light",
-                                    service: 'turn_on',
-                                    service_data: {
-                                        entity_id: 'light.wo_de_ping_ban',
-                                        brightness_pct: 50
-                                    }
-                                })
-                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度适中', lifetime: 3, type: 'success' })
-                            }
-                        },
-                        // 第三行
-                        {
-                            position: [1, 2],
-                            type: TYPES.CUSTOM,
-                            title: '亮',
-                            state: '',
-                            id: {},
-                            icon: 'mdi-lightbulb-on',
-                            action: function (item, entity) {
-
-                                this.api.send({
-                                    type: "call_service",
-                                    domain: "light",
-                                    service: 'turn_on',
-                                    service_data: {
-                                        entity_id: 'light.wo_de_ping_ban',
-                                        brightness_pct: 100
-                                    }
-                                })
-                                window.Noty.addObject({ title: 'HomeAssistant', message: '屏幕亮度最亮', lifetime: 3, type: 'success' })
+                                tileboard.search('theme', 'COMPACT')
                             }
                         },
                         // 第一行
@@ -1001,17 +835,6 @@ var CONFIG = {
                             icon: 'mdi-palette-outline',
                             action: function (item, entity) {
                                 tileboard.search('theme', 'HOMEKIT')
-                            }
-                        },
-                        {
-                            position: [2, 3],
-                            type: TYPES.CUSTOM,
-                            title: '默认主题',
-                            state: 'COMPACT',
-                            id: {},
-                            icon: 'mdi-palette-outline',
-                            action: function (item, entity) {
-                                tileboard.search('theme', 'COMPACT')
                             }
                         },
                     ]

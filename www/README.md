@@ -27,9 +27,13 @@ icon: 'mdi-desktop-tower'
 type: 'info'
 title: '待办事项'
 message: '您有一条消息，别忘记需要处理了哦'
-```
-```yaml
 
+# 文本转语音
+command: tts
+text: 使用浏览器内置的TTS服务
+```
+
+```yaml
 # 播放链接
 command: audio
 url: https://music.163.com/song/media/outer/url?id=1840459406.mp3

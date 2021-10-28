@@ -21,9 +21,103 @@ var tileboard = {
         'windy': { name: '风', icon: 'unknown' },
         'windy-variant': { name: '大风', icon: 'unknown' }
     },
-    audio: {
-
-    },
+    audio: new Audio(),
+    // 事件
+    events: [
+        {
+            command: 'audio',
+            action: function (e) {
+                var config = tileboard.search('config')
+                if (e.config !== config) {
+                    return
+                }
+                var audio = tileboard.audio
+                if (e.url) {
+                    let url = e.url
+                    if (location.protocol === 'https:') {
+                        url = url.replace('http://', 'https://')
+                    }
+                    audio.src = url
+                    audio.play()
+                }
+                // 播放音乐
+                switch (e.type) {
+                    case 'play':
+                        audio.play()
+                        break;
+                    case 'pause':
+                        audio.pause()
+                        break;
+                    case 'reload':
+                        if (audio.src) {
+                            audio.currentTime = 0
+                            audio.play()
+                        }
+                        break;
+                    case 'volume_up':
+                        if (audio.volume < 1) {
+                            audio.volume += 0.1
+                        }
+                        break;
+                    case 'volume_down':
+                        if (audio.volume > 0.1) {
+                            audio.volume -= 0.1
+                        }
+                        break;
+                    case 'volume_set':
+                        var volume = e.volume
+                        if (!isNaN(volume) && volume >= 0 && volume <= 100) {
+                            audio.volume = volume / 100
+                        }
+                        break;
+                }
+            }
+        },
+        {
+            command: 'tts',
+            action: function (e) {
+                if (e.text) {
+                    tileboard.speak(e.text)
+                }
+            }
+        },
+        {
+            command: 'refresh_page',
+            action: function (e) {
+                location.reload()
+            }
+        },
+        {
+            command: 'screen_saver',
+            action: function (e) {
+                window.showScreensaver()
+            }
+        },
+        {
+            command: 'fullscreen',
+            action: function (e) {
+                document.documentElement.requestFullscreen()
+            }
+        },
+        {
+            command: 'exit_fullscreen',
+            action: function (e) {
+                document.exitFullscreen()
+            }
+        },
+        {
+            command: 'clear_notify',
+            action: function (e) {
+                window.Noty.removeAll()
+            }
+        },
+        {
+            command: 'notify',
+            action: function (e) {
+                window.Noty.addObject(e);
+            }
+        }
+    ],
     // 参数设置
     search: function (key, value) {
         var queryString = {}
@@ -43,11 +137,6 @@ var tileboard = {
             return queryString[key]
         }
     },
-    // 参数跳转
-
-    // 音乐播放器
-
-    // 视频播放器
     recognition: function () {
 
     },

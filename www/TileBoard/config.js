@@ -1,3 +1,7 @@
+// 合并事件
+Array.prototype.push.apply(tileboard.events, [
+
+]);
 
 var CONFIG = {
     customTheme: CUSTOM_THEMES[tileboard.search('theme')], // CUSTOM_THEMES.TRANSPARENT, CUSTOM_THEMES.MATERIAL, CUSTOM_THEMES.MOBILE, CUSTOM_THEMES.COMPACT, CUSTOM_THEMES.HOMEKIT, CUSTOM_THEMES.WINPHONE, CUSTOM_THEMES.WIN95
@@ -14,92 +18,7 @@ var CONFIG = {
     pingConnection: true, //ping connection to prevent silent disconnections
     locale: 'zh-cn', // locale for date and number formats - available locales: it, de, es, fr, pt, ru, nl, pl, en-gb, en-us (default). See readme on adding custom locales.
     // next fields are optional
-    events: [
-        {
-            command: 'audio',
-            action: function (e) {
-                if (!window.TileBoardAudio) {
-                    window.TileBoardAudio = new Audio()
-                }
-                var audio = window.TileBoardAudio
-                if (e.url) {
-                    let url = e.url
-                    if (location.protocol === 'https:') {
-                        url = url.replace('http://', 'https://')
-                    }
-                    audio.src = url
-                    audio.play()
-                }
-                // 播放音乐
-                switch (e.type) {
-                    case 'play':
-                        audio.play()
-                        break;
-                    case 'pause':
-                        audio.pause()
-                        break;
-                    case 'reload':
-                        if (audio.src) {
-                            audio.currentTime = 0
-                            audio.play()
-                        }
-                        break;
-                    case 'volume_up':
-                        if (audio.volume < 1) {
-                            audio.volume += 0.1
-                        }
-                        break;
-                    case 'volume_down':
-                        if (audio.volume > 0.1) {
-                            audio.volume -= 0.1
-                        }
-                        break;
-                    case 'volume_set':
-                        var volume = e.volume
-                        if (!isNaN(volume) && volume >= 0 && volume <= 100) {
-                            audio.volume = volume / 100
-                        }
-                        break;
-                }
-            }
-        },
-        {
-            command: 'refresh_page',
-            action: function (e) {
-                location.reload()
-            }
-        },
-        {
-            command: 'screen_saver',
-            action: function (e) {
-                window.showScreensaver()
-            }
-        },
-        {
-            command: 'fullscreen',
-            action: function (e) {
-                document.documentElement.requestFullscreen()
-            }
-        },
-        {
-            command: 'exit_fullscreen',
-            action: function (e) {
-                document.exitFullscreen()
-            }
-        },
-        {
-            command: 'clear_notify',
-            action: function (e) {
-                window.Noty.removeAll()
-            }
-        },
-        {
-            command: 'notify',
-            action: function (e) {
-                window.Noty.addObject(e);
-            }
-        }
-    ],
+    events: tileboard.events,
     timeFormat: 24,
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar

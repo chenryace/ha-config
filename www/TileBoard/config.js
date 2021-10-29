@@ -23,7 +23,10 @@ var CONFIG = {
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar
     groupsAlign: GROUP_ALIGNS.HORIZONTALLY, // HORIZONTALLY, VERTICALLY, GRID
-    onReady: function () { },
+    onReady: function () { 
+        tileboard.onReady(this)
+        tileboard.loadScript('voice.js')
+    },
 
     header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
         styles: {
@@ -362,9 +365,24 @@ var CONFIG = {
                                 id: 'camera.wo_de_ping_ban',  // Optional: camera entity to use on fullscreen, defaults to the tile camera entity if omitted
                                 bufferLength: 5  // Optional: buffer length in seconds for the HLS buffer, default is 5 seconds
                             },
-                            refresh: 1500,  // can be number in milliseconds
+                            refresh: 60000
+                        },
+                        {
+                            position: [0, 2],
+                            id: 'camera.ping_mu_zhuo_mian',
+                            type: TYPES.CAMERA,
+                            bgSize: 'cover',
+                            width: 2,
+                            height: 2,
+                            state: false,
+                            fullscreen: {
+                                type: TYPES.CAMERA,
+                                objFit: 'scale-down',  // https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+                                id: 'camera.ping_mu_zhuo_mian',  // Optional: camera entity to use on fullscreen, defaults to the tile camera entity if omitted
+                                bufferLength: 5  // Optional: buffer length in seconds for the HLS buffer, default is 5 seconds
+                            },
                             refresh: function () {  // can also be a function
-                                return 3000 + Math.random() * 1000
+                                return 60 * 60 * 1000
                             }
                         }
                     ]
@@ -935,6 +953,58 @@ var CONFIG = {
                         },
                     ]
                 },
+                {
+                    title: '播放器',
+                    width: 4,
+                    height: 3,
+                    items: [
+                        {
+                            position: [0, 0],
+                            type: TYPES.CUSTOM,
+                            title: '播放/暂停',
+                            state: '',
+                            id: {},
+                            width: 1,
+                            icon: 'mdi-play-pause',
+                            action: function (item, entity) {
+                                tileboard.audio.paused ? tileboard.audio.play() : tileboard.audio.pause()
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.SLIDER,
+                            id: { attributes:{ volume: tileboard.audio.volume * 100  } },
+                            title: '音量',
+                            width: 2,
+                            state: false,
+                            icon: 'mdi-volume-source',
+                            filter: function (value) {
+                               if(value){
+                                    tileboard.audio.volume = value / 100
+                               }
+                               return value;
+                            },
+                            slider: {
+                               max: 100,
+                               min: 0,
+                               field: 'volume',
+                            },
+                        },
+                        {
+                            position: [3, 0],
+                            type: TYPES.CUSTOM,
+                            title: '重新播放',
+                            state: '',
+                            id: {},
+                            width: 1,
+                            icon: 'mdi-replay',
+                            action: function (item, entity) {
+                                tileboard.audio.currentTime = 0
+                                tileboard.audio.play()
+                            }
+                        },
+                    ]
+                }
             ]
         }
     ],

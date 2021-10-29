@@ -1,4 +1,15 @@
 var tileboard = {
+    api: null,
+    loadScript: function (src) {
+        return new Promise(function (resolve) {
+            var js = document.createElement('script')
+            js.src = src
+            js.onload = () => {
+                resolve()
+            }
+            document.body.appendChild(js)
+        })
+    },
     // 天气信息
     weather: {
         'clear-day': { name: '晴天', icon: 'clear' },
@@ -148,6 +159,9 @@ var tileboard = {
         utterThis.pitch = 1;
         utterThis.rate = 1;
         synth.speak(utterThis);
+    },
+    onReady: function (t) {
+        tileboard.api = t.api
     }
 }
 

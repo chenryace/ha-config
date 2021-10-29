@@ -10,6 +10,9 @@ class VoiceRecognition {
         await this.loadScript('https://unpkg.zhimg.com/@picovoice/porcupine-web-en-worker/dist/iife/index.js')
         await this.loadScript('https://unpkg.zhimg.com/@picovoice/web-voice-processor/dist/iife/index.js')
         this.startPorcupine()
+        setTimeout(() => {
+            this.toast(`语音助手准备好了，对我说${this.hotwords}，唤醒我吧`)
+        }, 2000)
     }
 
     loadScript(src) {
@@ -32,7 +35,7 @@ class VoiceRecognition {
 
     // 通知
     toast(message) {
-        window.Noty.addObject({ id: 'voice', title: '语音小助手', message, lifetime: 3, type: 'success' })
+        window.Noty.addObject({ title: '语音小助手', message, lifetime: 3, type: 'info' })
     }
 
     async startPorcupine() {
@@ -49,7 +52,7 @@ class VoiceRecognition {
                     console.log("Porcupine detected " + data.keywordLabel);
                     this.stopPorcupine()
                     // 开始执行语音识别
-                    
+
                     this.initVoiceRecorder()
                     break;
                 default:
@@ -62,10 +65,6 @@ class VoiceRecognition {
             });
             this.webVp = webVp
             this.porcupineWorker = porcupineWorker
-            setTimeout(() => {
-                // console.log('语音助手准备好了')
-                this.toast(`语音助手准备好了，对我说${hotwords}，唤醒我吧`)
-            }, 1500)
         } catch (ex) {
             console.error(ex)
         }
@@ -82,7 +81,7 @@ class VoiceRecognition {
     }
 
     // 初始化录音
-    initVoiceRecorder() {
+    initVoiceRecorder(flags) {
         const recorder = Recorder({ type: "wav", sampleRate: 16000 });
         recorder.open(() => {
             this.startListening()
@@ -97,7 +96,8 @@ class VoiceRecognition {
                     recorder.stop(async (blob, duration) => {
                         recorder.close();
                         if (duration > 2000) {
-                            window.VOICE_RECOGNITION.startPorcupine()
+                            this.setListeningText(`正在识别中...`)
+                            if (!flags) window.VOICE_RECOGNITION.startPorcupine()
                             // 上传识别
                             const body = new FormData();
                             body.append("wav", blob);
@@ -111,10 +111,10 @@ class VoiceRecognition {
                             } else {
                                 this.toast(res.msg)
                             }
-                            this.stopListening()
                         } else {
-                            this.toast('提示：当前录音时间没有2秒', -1)
+                            this.toast('提示：当前录音时间没有2秒')
                         }
+                        this.stopListening()
                     }, (msg) => {
                         this.toast("录音失败:" + msg);
                     });

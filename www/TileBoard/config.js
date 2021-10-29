@@ -218,14 +218,7 @@ var CONFIG = {
                             id: {},
                             icon: 'mdi-microphone',
                             action: function (item, entity) {
-                                this.api.send({
-                                    type: "call_service",
-                                    domain: "mipad_android",
-                                    service: 'load',
-                                    service_data: {
-                                        stt: 1
-                                    }
-                                })
+                                window.VOICE_RECOGNITION.initVoiceRecorder(true)
                             }
                         },
                         {
@@ -811,6 +804,17 @@ var CONFIG = {
                         },
                         {
                             position: [0, 2],
+                            type: TYPES.CUSTOM,
+                            title: '全屏',
+                            id: {},
+                            icon: 'mdi-fullscreen',
+                            state: '',
+                            action: function (item, entity) {
+                                document.documentElement.requestFullscreen()
+                            }
+                        },
+                        {
+                            position: [0, 3],
                             type: TYPES.LIGHT,
                             id: 'light.wo_de_ping_ban',
                             title: '我的平板',

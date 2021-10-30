@@ -106,7 +106,7 @@ class VoiceRecognition {
                                 body
                             }).then(res => res.json())
                             if (res.code == 0) {
-                                this.callService('conversation.process', { text: res.data })
+                                this.callService('conversation.process', { text: res.data, source: 'TileBoard' })
                                 this.toast(res.data)
                             } else {
                                 this.toast(res.msg)

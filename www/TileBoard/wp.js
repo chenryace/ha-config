@@ -6,7 +6,7 @@ Array.prototype.push.apply(tileboard.events, [
 var CONFIG = {
     customTheme: CUSTOM_THEMES[tileboard.search('theme')], // CUSTOM_THEMES.TRANSPARENT, CUSTOM_THEMES.MATERIAL, CUSTOM_THEMES.MOBILE, CUSTOM_THEMES.COMPACT, CUSTOM_THEMES.HOMEKIT, CUSTOM_THEMES.WINPHONE, CUSTOM_THEMES.WIN95
     transition: TRANSITIONS.ANIMATED_GPU, //ANIMATED or SIMPLE (better perfomance)
-    entitySize: ENTITY_SIZES.NORMAL, //SMALL, BIG are available
+    entitySize: ENTITY_SIZES.SMALL, //SMALL, BIG are available
     tileSize: 100,
     tileMargin: 6,
     serverUrl: location.protocol + '//' + location.host,

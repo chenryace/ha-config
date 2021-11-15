@@ -41,6 +41,7 @@ recorder:
     # 排除实体记录
     entities:
       - media_player.yun_yin_le
+      - sensor.date_time
       - sensor.connected_clients
       - sensor.disk_use_percent
       - sensor.disk_use

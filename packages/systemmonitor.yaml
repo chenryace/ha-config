@@ -41,6 +41,7 @@ group:
   systemmonitor:
     name: 系统监控
     entities:
+      - sensor.date_time
       - sensor.local_ip
       - sensor.connected_clients
       - sensor.cpu_temperature
@@ -61,6 +62,8 @@ group:
 # 自定义名称
 homeassistant:
   customize: 
+    sensor.date_time:
+      friendly_name: 日期时间
     sensor.connected_clients:
       friendly_name: 客户端数量
     sensor.disk_use_percent:

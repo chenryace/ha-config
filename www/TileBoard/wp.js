@@ -1,12 +1,12 @@
 // 合并事件
 Array.prototype.push.apply(tileboard.events, [
-    
+
 ]);
 
 var CONFIG = {
     customTheme: CUSTOM_THEMES[tileboard.search('theme')], // CUSTOM_THEMES.TRANSPARENT, CUSTOM_THEMES.MATERIAL, CUSTOM_THEMES.MOBILE, CUSTOM_THEMES.COMPACT, CUSTOM_THEMES.HOMEKIT, CUSTOM_THEMES.WINPHONE, CUSTOM_THEMES.WIN95
     transition: TRANSITIONS.ANIMATED_GPU, //ANIMATED or SIMPLE (better perfomance)
-    entitySize: ENTITY_SIZES.NORMAL, //SMALL, BIG are available
+    entitySize: ENTITY_SIZES.SMALL, //SMALL, BIG are available
     tileSize: 100,
     tileMargin: 6,
     serverUrl: location.protocol + '//' + location.host,
@@ -23,7 +23,8 @@ var CONFIG = {
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar
     groupsAlign: GROUP_ALIGNS.HORIZONTALLY, // HORIZONTALLY, VERTICALLY, GRID
-    onReady: function () { },
+    onReady: function () {
+    },
 
     header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
     },

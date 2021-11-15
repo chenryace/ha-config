@@ -138,6 +138,7 @@ class VoiceRecognition {
             <div class="conversation-voice-bg"></div>
             <div class="conversation-voice-text">正在聆听中...</div>
             <style>
+<<<<<<< HEAD
                 .conversation-voice{
                     position: fixed;
                     width: 100%;
@@ -145,11 +146,19 @@ class VoiceRecognition {
                     left:0;top:0;
                     z-index: 100;
                 }
+=======
+>>>>>>> a931fdbcb5f15bb379db513304ab5103bed7358d
                 .conversation-voice-bg {
                     width: 100%;
                     height: 100vh;
                     position: fixed;
                     background: rgba(0, 0, 0, .8);
+<<<<<<< HEAD
+=======
+                    top:0;
+                    left:0;
+                    z-index: 1;
+>>>>>>> a931fdbcb5f15bb379db513304ab5103bed7358d
                 }
                 .conversation-voice-text {
                     color: white;
@@ -158,6 +167,10 @@ class VoiceRecognition {
                     position: fixed;
                     top: 40%;
                     width: 100%;
+<<<<<<< HEAD
+=======
+                    z-index: 1;
+>>>>>>> a931fdbcb5f15bb379db513304ab5103bed7358d
                     font-size: 50px;
                 }
             </style>
@@ -179,6 +192,10 @@ class VoiceRecognition {
     }
 }
 
+<<<<<<< HEAD
 if (location.protocol == 'https:' && !window.VOICE_RECOGNITION) {
+=======
+if (location.protocol == 'https:') {
+>>>>>>> a931fdbcb5f15bb379db513304ab5103bed7358d
     window.VOICE_RECOGNITION = new VoiceRecognition()
 }

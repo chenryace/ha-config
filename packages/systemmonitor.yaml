@@ -2,6 +2,9 @@
 sensor:
   # 显示有多少客户端连接
   - platform: websocket_api
+  - platform: time_date
+    display_options:
+      - date_time
   - platform: rest
     name: wan_ip
     resource: https://www.ip.cn/api/index?ip=&type=0

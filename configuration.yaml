@@ -18,11 +18,6 @@ homeassistant:
 # 主题
 frontend:
   themes: !include_dir_merge_named themes
-  
-# 自动发现
-discovery:
-  enable:
-    - dlna_dmr
 
 # 语音控制
 conversation:

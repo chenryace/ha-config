@@ -25,7 +25,6 @@ var CONFIG = {
     groupsAlign: GROUP_ALIGNS.HORIZONTALLY, // HORIZONTALLY, VERTICALLY, GRID
     onReady: function () {
         tileboard.onReady(this)
-        tileboard.loadScript('voice.js')
     },
 
     header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
@@ -205,24 +204,19 @@ var CONFIG = {
                             state: false, // disable state element
                             list: [
                                 {
-                                    title: '门口',
+                                    title: '镜前',
                                     icon: 'mdi-walk',
-                                    value: 'off'
+                                    value: '&binary_sensor.0x158d0005bd16c7_motion.state'
                                 },
                                 {
                                     title: '玄关',
                                     icon: 'mdi-walk',
-                                    value: 'off'
-                                },
-                                {
-                                    title: '阳台',
-                                    icon: 'mdi-walk',
-                                    value: 'off'
+                                    value: '&binary_sensor.0x158d0005bcdd0e_motion.state'
                                 },
                                 {
                                     title: '卫生间',
                                     icon: 'mdi-walk',
-                                    value: '&binary_sensor.lumi_lumi_sensor_motion_3876d103_ias_zone.state'
+                                    value: '&binary_sensor.0x158d00058a1dc1_motion.state'
                                 },
                                 {
                                     title: '床底',
@@ -380,6 +374,7 @@ var CONFIG = {
                     width: 2,
                     height: 3,
                     items: [
+                        /*
                         {
                             position: [0, 0],
                             id: 'camera.wo_de_ping_ban',
@@ -414,6 +409,7 @@ var CONFIG = {
                                 return 60 * 60 * 1000
                             }
                         }
+                        */
                     ]
                 }
             ]
@@ -488,9 +484,18 @@ var CONFIG = {
                     width: 2,
                     height: 3,
                     items: [
+                        
+                    ]
+
+                },
+                {
+                    title: '智能音箱',
+                    width: 1,
+                    height: 3,
+                    items: [
                         {
                             position: [0, 0],
-                            id: 'media_player.xiao_mi_dian_tai',
+                            id: 'media_player.xiaomi_l7a_2dda_play_control',
                             width: 2,
                             type: TYPES.MEDIA_PLAYER,
                             hideSource: false,
@@ -501,15 +506,6 @@ var CONFIG = {
                             subtitle: '@attributes.media_title',
                             // bgSuffix: '@attributes.entity_picture',
                         },
-                    ]
-
-                },
-                {
-                    title: '智能音箱',
-                    width: 1,
-                    height: 3,
-                    items: [
-
                     ]
 
                 }
@@ -547,7 +543,8 @@ var CONFIG = {
                            title: '晾衣架',
                            classes: [CLASS_BIG],
                            type: TYPES.INPUT_BOOLEAN,
-                           id: {}
+                           state: false,
+                           id: 'cover.liang_yi_jia_airer'
                         },
 
                         
@@ -575,7 +572,7 @@ var CONFIG = {
                            title: '小米电饭煲',
                            classes: [CLASS_BIG],
                            type: TYPES.INPUT_BOOLEAN,
-                           id: {}
+                           id: 'switch.0x158d0002fbc199_switch'
                         },
                         {
                            position: [1, 1],
@@ -583,7 +580,7 @@ var CONFIG = {
                            title: '电饭煲',
                            classes: [CLASS_BIG],
                            type: TYPES.INPUT_BOOLEAN,
-                           id: {}
+                           id: 'switch.0x158d0002fc0679_switch'
                         },
                         {
                            position: [2, 0],
@@ -603,8 +600,6 @@ var CONFIG = {
 
                     ],
                 },
-
-
                 {
                     title: '主卧 - 次卧 - 书房',
                     width: 3,
@@ -614,7 +609,7 @@ var CONFIG = {
                            position: [0, 0],
                            type: TYPES.FAN,
                            title: '电风扇',
-                           id: {},
+                           id: 'fan.dmaker_p5_19ea_fan',
                         }
                     ]
                 },
@@ -688,7 +683,7 @@ var CONFIG = {
                         {
                             position: [0, 0],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d0004315109_channel_1',
                             title: '吸顶灯',
                             states: {
                                 on: "开",
@@ -702,7 +697,7 @@ var CONFIG = {
                         {
                             position: [0, 1],
                             type: TYPES.LIGHT,
-                            id: 'light.theater_lights',
+                            id: 'switch.0x158d0004315109_channel_2',
                             title: '筒灯',
                             states: {
                                 on: "开",
@@ -715,9 +710,9 @@ var CONFIG = {
                         },
                         {
                             position: [1, 0],
-                            type: TYPES.SWITCH,
+                            type: TYPES.LIGHT,
                             title: '镜前灯',
-                            id: 'switch.sonoff_1000b22946',
+                            id: 'switch.0x158d0004839c8c_switch',
                             states: {
                                 on: "开",
                                 off: "关"
@@ -729,8 +724,8 @@ var CONFIG = {
                         },
                         {
                             position: [1, 1],
-                            type: TYPES.SWITCH,
-                            id: 'light.xiao_mi_deng_pao',
+                            type: TYPES.LIGHT,
+                            id: 'light.liang_yi_jia_light',
                             title: '阳台灯',
                             states: {
                                 on: "开",
@@ -754,7 +749,7 @@ var CONFIG = {
                         {
                             position: [0, 0],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d000463f48e_channel_1',
                             title: '吸顶灯',
                             states: {
                                 on: "开",
@@ -768,7 +763,7 @@ var CONFIG = {
                         {
                             position: [0, 1],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d000463f48e_channel_2',
                             title: '筒灯',
                             states: {
                                 on: "开",
@@ -781,8 +776,8 @@ var CONFIG = {
                         },
                         {
                             position: [0, 2],
-                            type: TYPES.SWITCH,
-                            //id: "switch.lights",
+                            type: TYPES.LIGHT,
+                            id: "switch.0x158d0004839d4c_switch",
                             id: { state: 'off' },
                             title: '阳台灯',
                             states: {
@@ -797,8 +792,8 @@ var CONFIG = {
 
                         {
                             position: [1, 0],
-                            type: TYPES.SWITCH,
-                            //id: "switch.lights",
+                            type: TYPES.LIGHT,
+                            id: "switch.0x158d000453287f_channel_2",
                             id: { state: 'off' },
                             title: '厨房灯',
                             states: {
@@ -813,8 +808,8 @@ var CONFIG = {
 
                         {
                             position: [1, 1],
-                            type: TYPES.SWITCH,
-                            //id: "switch.lights",
+                            type: TYPES.LIGHT,
+                            id: "switch.0x158d00047b68a9_switch",
                             id: { state: 'off' },
                             title: '玄关灯',
                             states: {
@@ -838,7 +833,7 @@ var CONFIG = {
                         {
                             position: [0, 0],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d0004839cda_switch',
                             title: '吸顶灯',
                             states: {
                                 on: "开",
@@ -852,7 +847,7 @@ var CONFIG = {
                         {
                             position: [0, 1],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d0004314f8b_channel_2',
                             title: '筒灯',
                             states: {
                                 on: "开",
@@ -866,7 +861,7 @@ var CONFIG = {
                         {
                             position: [0, 2],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d0004a00ff9_switch',
                             title: '飘窗灯',
                             states: {
                                 on: "开",
@@ -879,9 +874,9 @@ var CONFIG = {
                         },
                         {
                             position: [0, 3],
-                            type: TYPES.SWITCH,
+                            type: TYPES.LIGHT,
                             title: '主卫灯',
-                            id: 'switch.sonoff_1000b22946',
+                            id: 'switch.0x158d0004a0097f_switch',
                             states: {
                                 on: "开",
                                 off: "关"
@@ -895,7 +890,7 @@ var CONFIG = {
                         {
                             position: [1, 0],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d000463f4ef_channel_1',
                             title: '吸顶灯',
                             states: {
                                 on: "开",
@@ -909,7 +904,7 @@ var CONFIG = {
                         {
                             position: [1, 1],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d000463f4ef_channel_2',
                             title: '筒灯',
                             states: {
                                 on: "开",
@@ -924,7 +919,7 @@ var CONFIG = {
                         {
                             position: [2, 0],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d00045eefbb_channel_2',
                             title: '吸顶灯',
                             states: {
                                 on: "开",
@@ -938,7 +933,7 @@ var CONFIG = {
                         {
                             position: [2, 1],
                             type: TYPES.LIGHT,
-                            id: 'light.xiao_mi_deng_pao',
+                            id: 'switch.0x158d00045eefbb_channel_1',
                             title: '筒灯',
                             states: {
                                 on: "开",
@@ -1001,35 +996,7 @@ var CONFIG = {
                                 document.documentElement.requestFullscreen()
                             }
                         },
-                        {
-                            position: [0, 3],
-                            type: TYPES.LIGHT,
-                            id: 'light.wo_de_ping_ban',
-                            title: '我的平板',
-                            states: {
-                                on: "开",
-                                off: "关"
-                            },
-                            icons: {
-                                on: "mdi-lightbulb-on",
-                                off: "mdi-lightbulb",
-                            },
-                            sliders: [
-                                {
-                                    title: 'Brightness',
-                                    field: 'brightness',
-                                    max: 255,
-                                    min: 0,
-                                    step: 5,
-                                    request: {
-                                        type: "call_service",
-                                        domain: "light",
-                                        service: "turn_on",
-                                        field: "brightness"
-                                    }
-                                }
-                            ]
-                        },
+                    
                         // 第一行
                         {
                             position: [1, 0],

@@ -6,7 +6,7 @@ cd ~/homeassistant/www/
 
 wget https://hub.fastgit.org/resoai/TileBoard/releases/download/v2.6.3/TileBoard.zip
 
-unzip TileBoard.zip -d Tileboard
+unzip TileBoard.zip -d TileBoard
 ```
 
 触发事件

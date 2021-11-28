@@ -16,8 +16,7 @@ var CONFIG = {
     //mapboxToken: "XXXXXXXXXX", // Required if you are using Mapbox for device tracker
     debug: false, // Prints entities and state change info to the console.
     pingConnection: true, //ping connection to prevent silent disconnections
-    locale: 'zh-cn', // locale for date and number formats - available locales: it, de, es, fr, pt, ru, nl, pl, en-gb, en-us (default). See readme on adding custom locales.
-    // next fields are optional
+    locale: 'zh-cn',
     events: tileboard.events,
     timeFormat: 24,
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
@@ -27,7 +26,7 @@ var CONFIG = {
         tileboard.onReady(this)
     },
 
-    header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
+    header: {
         styles: {
             margin: '20px 65px 0 65px',
             fontSize: '28px'
@@ -53,23 +52,23 @@ var CONFIG = {
                 styles: {
                     margin: '0 0 0 70px'
                 },
-                dateFormat: 'EEEE, dd LLLL', //https://docs.angularjs.org/api/ng/filter/date
+                dateFormat: 'EEEE, dd LLLL',
             }
         ]
     },
 
-    screensaver: {// optional. https://github.com/resoai/TileBoard/wiki/Screensaver-configuration
-        timeout: 300, // after 5 mins of inactive
-        slidesTimeout: 10, // 10s for one slide
+    screensaver: {
+        timeout: 300,
+        slidesTimeout: 10,
         styles: { fontSize: '40px' },
-        leftBottom: [{ type: SCREENSAVER_ITEMS.DATETIME }], // put datetime to the left-bottom of screensaver
+        leftBottom: [{ type: SCREENSAVER_ITEMS.DATETIME }],
         slides: [
             { bg: 'https://pic.downk.cc/item/5ec331eec2a9a83be54d84f4.jpg' },
             { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.soumeitu.com%2Fwp-content%2Fuploads%2F2020%2F03%2F5e830ed47bb5e.jpg&refer=http%3A%2F%2Fwww.soumeitu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=75c6c9e5ec86214d4cee93375b0d3e47' },
             { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2017-11-27%2F5a1ba6c832230.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8a5fb766c4ab6dc6af4ab930c0e3fe96' },
             {
                 bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Ff%2F59acbb7762c18.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628595163&t=d2e933baff73aab89dc22f2ff8fdf70a',
-                rightTop: [ // put text to the 2nd slide
+                rightTop: [
                     {
                         type: SCREENSAVER_ITEMS.CUSTOM_HTML,
                         html: '欢迎来到 <b>我的智慧家庭</b>',
@@ -90,7 +89,7 @@ var CONFIG = {
                     title: '生活信息',
                     width: 4,
                     height: 3,
-                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    
                     items: [
                         {
                             // please read README.md for more information
@@ -385,9 +384,9 @@ var CONFIG = {
                             state: false,
                             fullscreen: {
                                 type: TYPES.CAMERA,
-                                objFit: 'scale-down',  // https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
-                                id: 'camera.wo_de_ping_ban',  // Optional: camera entity to use on fullscreen, defaults to the tile camera entity if omitted
-                                bufferLength: 5  // Optional: buffer length in seconds for the HLS buffer, default is 5 seconds
+                                objFit: 'scale-down',
+                                id: 'camera.wo_de_ping_ban',
+                                bufferLength: 5
                             },
                             refresh: 60000
                         },
@@ -401,11 +400,11 @@ var CONFIG = {
                             state: false,
                             fullscreen: {
                                 type: TYPES.CAMERA,
-                                objFit: 'scale-down',  // https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
-                                id: 'camera.ping_mu_zhuo_mian',  // Optional: camera entity to use on fullscreen, defaults to the tile camera entity if omitted
-                                bufferLength: 5  // Optional: buffer length in seconds for the HLS buffer, default is 5 seconds
+                                objFit: 'scale-down',
+                                id: 'camera.ping_mu_zhuo_mian',
+                                bufferLength: 5
                             },
-                            refresh: function () {  // can also be a function
+                            refresh: function () {
                                 return 60 * 60 * 1000
                             }
                         }
@@ -521,7 +520,7 @@ var CONFIG = {
                     width: 1,
                     height: 3,
                     items: [
-                       
+
                     ]
                 },
 
@@ -531,11 +530,11 @@ var CONFIG = {
                     height: 3,
                     items: [
                         {
-                           position: [0, 0],
-                           id: {},
-                           type: TYPES.CLIMATE,
-                           unit: 'C',
-                           title: '空调'
+                            position: [0, 0],
+                            id: {},
+                            type: TYPES.CLIMATE,
+                            unit: 'C',
+                            title: '空调'
                         },
                         {
                            position: [1, 0],
@@ -547,7 +546,7 @@ var CONFIG = {
                            id: 'cover.liang_yi_jia_airer'
                         },
 
-                        
+
                     ]
                 },
 
@@ -556,15 +555,15 @@ var CONFIG = {
                     title: '餐厅 - 厨房 - 玄关',
                     width: 3,
                     height: 3,
-                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    
                     items: [
                         {
-                           position: [0, 0],
-                           width: 1,
-                           title: '热水壶',
-                           classes: [CLASS_BIG],
-                           type: TYPES.INPUT_BOOLEAN,
-                           id: {}
+                            position: [0, 0],
+                            width: 1,
+                            title: '热水壶',
+                            classes: [CLASS_BIG],
+                            type: TYPES.INPUT_BOOLEAN,
+                            id: {}
                         },
                         {
                            position: [1, 0],
@@ -583,21 +582,19 @@ var CONFIG = {
                            id: 'switch.0x158d0002fc0679_switch'
                         },
                         {
-                           position: [2, 0],
-                           type: TYPES.LOCK,
-                           id: {},
-                           title: '门锁',
-                           states: {
-                              locked: "Locked",
-                              unlocked: "Unlocked"
-                           },
-                           icons: {
-                              locked: "mdi-lock",
-                              unlocked: "mdi-lock-open",
-                           }
+                            position: [2, 0],
+                            type: TYPES.LOCK,
+                            id: {},
+                            title: '门锁',
+                            states: {
+                                locked: "Locked",
+                                unlocked: "Unlocked"
+                            },
+                            icons: {
+                                locked: "mdi-lock",
+                                unlocked: "mdi-lock-open",
+                            }
                         }
-
-
                     ],
                 },
                 {
@@ -678,7 +675,7 @@ var CONFIG = {
                     title: '客厅 - 阳台',
                     width: 2,
                     height: 3,
-                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    
                     items: [
                         {
                             position: [0, 0],
@@ -744,7 +741,7 @@ var CONFIG = {
                     title: '餐厅 - 厨房 - 玄关',
                     width: 2,
                     height: 3,
-                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
+                    
                     items: [
                         {
                             position: [0, 0],

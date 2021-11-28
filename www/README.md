@@ -1,10 +1,9 @@
 
-TileBoard磁贴面板
-
+[TileBoard磁贴面板](https://github.com/resoai/TileBoard)
 ```bash
 cd ~/homeassistant/www/
 
-wget https://hub.fastgit.org/resoai/TileBoard/releases/download/v2.6.3/TileBoard.zip
+wget https://hub.fastgit.org/resoai/TileBoard/releases/download/v2.7.0/TileBoard.zip
 
 unzip TileBoard.zip -d TileBoard
 ```

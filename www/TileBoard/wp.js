@@ -1,6 +1,6 @@
 // 合并事件
 Array.prototype.push.apply(tileboard.events, [
-    
+
 ]);
 
 var CONFIG = {
@@ -23,7 +23,8 @@ var CONFIG = {
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar
     groupsAlign: GROUP_ALIGNS.HORIZONTALLY, // HORIZONTALLY, VERTICALLY, GRID
-    onReady: function () { },
+    onReady: function () {
+    },
 
     header: { // https://github.com/resoai/TileBoard/wiki/Header-configuration
     },

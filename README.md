@@ -1,6 +1,16 @@
 # ha-config
 我的HomeAssistant配置
 
+[![hacs_badge](https://img.shields.io/badge/Home-Assistant-%23049cdb)](https://www.home-assistant.io/)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+
+![visit](https://visitor-badge.glitch.me/badge?page_id=shaonianzhentan.ha-config&left_text=visit)
+![forks](https://img.shields.io/github/forks/shaonianzhentan/ha-config)
+![stars](https://img.shields.io/github/stars/shaonianzhentan/ha-config)
+
+#### 关注我的微信订阅号，了解更多HomeAssistant相关知识
+<img src="https://github.com/shaonianzhentan/ha-docs/raw/master/docs/img/wechat-channel.png" align="left" height="160" alt="HomeAssistant家庭助理" title="HomeAssistant家庭助理" />
+
 ## 快速安装
 
 Docker管理

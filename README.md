@@ -9,7 +9,7 @@
 ![stars](https://img.shields.io/github/stars/shaonianzhentan/ha-config)
 
 #### 关注我的微信订阅号，了解更多HomeAssistant相关知识
-<img src="https://github.com/shaonianzhentan/ha-docs/raw/master/docs/img/wechat-channel.png" align="left" height="160" alt="HomeAssistant家庭助理" title="HomeAssistant家庭助理" />
+<img src="https://github.com/shaonianzhentan/ha-docs/raw/master/docs/img/wechat-channel.png" height="160" alt="HomeAssistant家庭助理" title="HomeAssistant家庭助理" />
 
 ## 快速安装
 

@@ -162,6 +162,16 @@ var tileboard = {
     },
     onReady: function (t) {
         tileboard.api = t.api
+    },
+    post: function (url, data) {
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: 'Bearer ' + tileboard.api._token
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json())
     }
 }
 

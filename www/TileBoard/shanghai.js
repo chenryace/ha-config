@@ -4,9 +4,9 @@ Array.prototype.push.apply(tileboard.events, [
 ]);
 
 var CONFIG = {
-    customTheme: CUSTOM_THEMES[tileboard.search('theme')],
-    transition: TRANSITIONS.ANIMATED_GPU,
-    entitySize: ENTITY_SIZES.NORMAL,
+    customTheme: CUSTOM_THEMES[tileboard.search('theme')], // CUSTOM_THEMES.TRANSPARENT, CUSTOM_THEMES.MATERIAL, CUSTOM_THEMES.MOBILE, CUSTOM_THEMES.COMPACT, CUSTOM_THEMES.HOMEKIT, CUSTOM_THEMES.WINPHONE, CUSTOM_THEMES.WIN95
+    transition: TRANSITIONS.ANIMATED_GPU, //ANIMATED or SIMPLE (better perfomance)
+    entitySize: ENTITY_SIZES.NORMAL, //SMALL, BIG are available
     tileSize: 130,
     tileMargin: 6,
     serverUrl: location.protocol + '//' + location.host,
@@ -23,7 +23,7 @@ var CONFIG = {
     menuPosition: MENU_POSITIONS.LEFT, // or BOTTOM
     hideScrollbar: false, // horizontal scrollbar
     groupsAlign: GROUP_ALIGNS.HORIZONTALLY, // HORIZONTALLY, VERTICALLY, GRID
-    onReady: function () {
+    onReady: function () { 
         tileboard.onReady(this)
         tileboard.loadScript('voice.js')
     },
@@ -63,10 +63,10 @@ var CONFIG = {
         leftBottom: [{ type: SCREENSAVER_ITEMS.DATETIME }], // put datetime to the left-bottom of screensaver
         slides: [
             { bg: 'https://pic.downk.cc/item/5ec331eec2a9a83be54d84f4.jpg' },
-            { bg: 'https://pic.netbian.com/uploads/allimg/170609/123945-1496983185ad61.jpg' },
-            { bg: 'https://pic.netbian.com/uploads/allimg/211109/115513-163643011323a5.jpg' },
+            { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.soumeitu.com%2Fwp-content%2Fuploads%2F2020%2F03%2F5e830ed47bb5e.jpg&refer=http%3A%2F%2Fwww.soumeitu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=75c6c9e5ec86214d4cee93375b0d3e47' },
+            { bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2017-11-27%2F5a1ba6c832230.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628513217&t=8a5fb766c4ab6dc6af4ab930c0e3fe96' },
             {
-                bg: 'https://pic.netbian.com/uploads/allimg/170725/103840-150095032034c0.jpg',
+                bg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Ff%2F59acbb7762c18.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628595163&t=d2e933baff73aab89dc22f2ff8fdf70a',
                 rightTop: [ // put text to the 2nd slide
                     {
                         type: SCREENSAVER_ITEMS.CUSTOM_HTML,
@@ -204,6 +204,13 @@ var CONFIG = {
                             // bgSuffix: '@attributes.entity_picture',
                         },
                         {
+                            position: [2, 2],
+                            type: TYPES.SCRIPT,
+                            id: 'script.wang_yi_dian_tai_song_yu_xuan_du',
+                            state: false,
+                            icon: 'mdi-music',
+                        },
+                        {
                             position: [0, 3],
                             type: TYPES.CUSTOM,
                             title: '语音识别',
@@ -211,12 +218,22 @@ var CONFIG = {
                             id: {},
                             icon: 'mdi-microphone',
                             action: function (item, entity) {
-                                if (window.VOICE_RECOGNITION) {
-                                    window.VOICE_RECOGNITION.initVoiceRecorder(true)
-                                } else {
-                                    window.Noty.addObject({ title: '语音小助手', message: '请在HTTPS下使用', lifetime: 3, type: 'info' })
-                                }
+                                window.VOICE_RECOGNITION.initVoiceRecorder(true)
                             }
+                        },
+                        {
+                            position: [1, 3],
+                            type: TYPES.SCRIPT,
+                            id: 'script.yun_yin_le_mei_ri_tui_jian',
+                            state: false,
+                            icon: 'mdi-music',
+                        },
+                        {
+                            position: [2, 3],
+                            type: TYPES.SCRIPT,
+                            id: 'script.xi_ma_la_ya_duan_zi_lai_le',
+                            state: false,
+                            icon: 'mdi-music',
                         },
                     ]
                 },
@@ -273,7 +290,20 @@ var CONFIG = {
                             state: false,
                             icon: 'mdi-account-lock',
                             title: '私密模式',
-                        }
+                        },
+                        {
+                            position: [0, 3],
+                            id: 'media_player.xiao_mi_dian_tai',
+                            width: 2,
+                            type: TYPES.MEDIA_PLAYER,
+                            hideSource: false,
+                            // textSource: '小米电台',
+                            hideMuteButton: false,
+                            state: false,
+                            //state: '@attributes.media_title',
+                            subtitle: '@attributes.media_title',
+                            // bgSuffix: '@attributes.entity_picture',
+                        },
                     ]
                 },
 
@@ -308,12 +338,53 @@ var CONFIG = {
                         }
 
                     ]
+                },
+                {
+                    title: '摄像监控',
+                    width: 2,
+                    height: 3,
+                    items: [
+                        {
+                            position: [0, 0],
+                            id: 'camera.wo_de_ping_ban',
+                            type: TYPES.CAMERA,
+                            bgSize: 'cover',
+                            width: 2,
+                            height: 2,
+                            state: false,
+                            fullscreen: {
+                                type: TYPES.CAMERA,
+                                objFit: 'scale-down',  // https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+                                id: 'camera.wo_de_ping_ban',  // Optional: camera entity to use on fullscreen, defaults to the tile camera entity if omitted
+                                bufferLength: 5  // Optional: buffer length in seconds for the HLS buffer, default is 5 seconds
+                            },
+                            refresh: 60000
+                        },
+                        {
+                            position: [0, 2],
+                            id: 'camera.ping_mu_zhuo_mian',
+                            type: TYPES.CAMERA,
+                            bgSize: 'cover',
+                            width: 2,
+                            height: 2,
+                            state: false,
+                            fullscreen: {
+                                type: TYPES.CAMERA,
+                                objFit: 'scale-down',  // https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+                                id: 'camera.ping_mu_zhuo_mian',  // Optional: camera entity to use on fullscreen, defaults to the tile camera entity if omitted
+                                bufferLength: 5  // Optional: buffer length in seconds for the HLS buffer, default is 5 seconds
+                            },
+                            refresh: function () {  // can also be a function
+                                return 60 * 60 * 1000
+                            }
+                        }
+                    ]
                 }
             ]
         },
 
         {
-            title: '全屋设备',
+            title: '设置',
             bg: './images/bg3.jpg',
             icon: 'mdi-collage',
             groups: [
@@ -328,7 +399,7 @@ var CONFIG = {
                         {
                             position: [0, 0],
                             type: TYPES.LIGHT,
-                            id: 'input_boolean.ce_shi',
+                            id: 'light.xiao_mi_deng_pao',
                             title: '吸顶灯',
                             states: {
                                 on: "开",
@@ -337,6 +408,83 @@ var CONFIG = {
                             icons: {
                                 on: "mdi-lightbulb-on",
                                 off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.theater_lights',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [2, 0],
+                            type: TYPES.SWITCH,
+                            title: '镜前灯',
+                            id: 'switch.sonoff_1000b22946',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [2, 1],
+                            type: TYPES.SWITCH,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '阳台灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 2],
+                            width: 2,
+                            id: 'media_player.xiao_mi_dian_shi',
+                            type: TYPES.MEDIA_PLAYER,
+                            hideSource: false,
+                            state: false,
+                            //state: '@attributes.media_title',
+                            subtitle: '@attributes.media_title',
+                            // bgSuffix: '@attributes.entity_picture',
+                        },
+                        {
+                            position: [2, 2],
+                            type: TYPES.CUSTOM,
+                            title: '播放历史记录',
+                            id: {},
+                            icon: 'mdi-movie',
+                            state: '小米电视',
+                            action: function (item, entity) {
+
+                            }
+                        },
+                        {
+                            position: [0, 3],
+                            type: TYPES.SWITCH,
+                            id: 'switch.sonoff_1001307c6b',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-camera",
+                                off: "mdi-camera-off",
                             }
                         },
                     ]
@@ -351,8 +499,37 @@ var CONFIG = {
                     items: [
                         {
                             position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 1],
                             type: TYPES.SWITCH,
-                            id: 'input_boolean.ce_shi',
+                            //id: "switch.lights",
+                            id: { state: 'off' },
                             title: '厨房灯',
                             states: {
                                 on: "开",
@@ -363,14 +540,87 @@ var CONFIG = {
                                 off: "mdi-lightbulb",
                             }
                         },
+                        {
+                            position: [1, 1],
+                            type: TYPES.SWITCH,
+                            //id: "switch.lights",
+                            id: { state: 'off' },
+                            title: '阳台灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+
                     ],
                 },
+
+
                 {
                     title: '主卧',
                     width: 2,
                     height: 3,
                     items: [
-
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [0, 1],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '飘窗灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 1],
+                            type: TYPES.SWITCH,
+                            title: '主卫灯',
+                            id: 'switch.sonoff_1000b22946',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
                     ]
                 },
 
@@ -380,7 +630,34 @@ var CONFIG = {
                     width: 2,
                     height: 3,
                     items: [
-
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
                     ]
                 },
 
@@ -391,7 +668,34 @@ var CONFIG = {
                     width: 2,
                     height: 3,
                     items: [
-
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '吸顶灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
+                        {
+                            position: [1, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
                     ]
                 },
 
@@ -400,8 +704,22 @@ var CONFIG = {
                     title: '玄关',
                     width: 1,
                     height: 3,
+                    // row: 0,  // optional; index of the row used for the GRID layout. If not specified, the default is 0
                     items: [
-
+                        {
+                            position: [0, 0],
+                            type: TYPES.LIGHT,
+                            id: 'light.xiao_mi_deng_pao',
+                            title: '筒灯',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            }
+                        },
                         {
                             position: [0, 1],
                             type: TYPES.LOCK,
@@ -495,7 +813,35 @@ var CONFIG = {
                                 document.documentElement.requestFullscreen()
                             }
                         },
-
+                        {
+                            position: [0, 3],
+                            type: TYPES.LIGHT,
+                            id: 'light.wo_de_ping_ban',
+                            title: '我的平板',
+                            states: {
+                                on: "开",
+                                off: "关"
+                            },
+                            icons: {
+                                on: "mdi-lightbulb-on",
+                                off: "mdi-lightbulb",
+                            },
+                            sliders: [
+                                {
+                                    title: 'Brightness',
+                                    field: 'brightness',
+                                    max: 255,
+                                    min: 0,
+                                    step: 5,
+                                    request: {
+                                        type: "call_service",
+                                        domain: "light",
+                                        service: "turn_on",
+                                        field: "brightness"
+                                    }
+                                }
+                            ]
+                        },
                         // 第一行
                         {
                             position: [1, 0],
@@ -631,21 +977,21 @@ var CONFIG = {
                         {
                             position: [1, 0],
                             type: TYPES.SLIDER,
-                            id: { attributes: { volume: tileboard.audio.volume * 100 } },
+                            id: { attributes:{ volume: tileboard.audio.volume * 100  } },
                             title: '音量',
                             width: 2,
                             state: false,
                             icon: 'mdi-volume-source',
                             filter: function (value) {
-                                if (value) {
+                               if(value){
                                     tileboard.audio.volume = value / 100
-                                }
-                                return value;
+                               }
+                               return value;
                             },
                             slider: {
-                                max: 100,
-                                min: 0,
-                                field: 'volume',
+                               max: 100,
+                               min: 0,
+                               field: 'volume',
                             },
                         },
                         {

@@ -7,7 +7,7 @@ class VoiceRecognition {
 
     async init() {
         await this.loadScript('https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@master/recorder.wav.min.js')
-        await this.loadScript('https://unpkg.zhimg.com/@picovoice/porcupine-web-en-worker/dist/iife/index.js')
+        await this.loadScript('https://unpkg.zhimg.com/@picovoice/porcupine-web-en-worker@1.9.4/dist/iife/index.js')
         await this.loadScript('https://unpkg.zhimg.com/@picovoice/web-voice-processor/dist/iife/index.js')
         this.startPorcupine()
         setTimeout(() => {
@@ -106,8 +106,9 @@ class VoiceRecognition {
                                 body
                             }).then(res => res.json())
                             if (res.code == 0) {
-                                this.callService('conversation.process', { text: res.data, source: 'TileBoard' })
-                                this.toast(res.data)
+                                tileboard.post('/api/conversation/process', { text: res.data }).then(res => {
+                                    this.toast(res.speech.plain.speech)
+                                })
                             } else {
                                 this.toast(res.msg)
                             }

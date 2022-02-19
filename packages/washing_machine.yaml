@@ -55,7 +55,7 @@ sensor:
           {{ states.binary_sensor.sonoff_ab700014a8.attributes.remain_time }}
 
 group:
-  systemmonitor:
+  washing_machine:
     name: 小天鹅洗衣机
     entities:
       - binary_sensor.sonoff_ab700014a8

@@ -1,5 +1,4 @@
 ```json
-[
     {
         "entry_id": "77c07fff236492324663952140a227ab",
         "version": 1,
@@ -139,6 +138,25 @@
         "source": "user",
         "unique_id": null,
         "disabled_by": null
-    }
-]
+    },    
+    {
+        "entry_id": "77c07fff236492324663952140a227a7",
+        "version": 1,
+        "domain": "panel_iframe",
+        "title": "待办事项",
+        "data": {
+            "title": "待办事项"
+        },
+        "options": {
+            "icon": "mdi:alarm-check",
+            "url": "https://todoist.com/app/today",
+            "require_admin": false,
+            "mode": "1"
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "unique_id": null,
+        "disabled_by": null
+    },
 ```

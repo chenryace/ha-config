@@ -1,3 +1,4 @@
+core.config_entries
 ```json
     {
         "entry_id": "77c07fff236492324663952140a227ab",
